@@ -79,15 +79,21 @@ tile_set = SubResource("TileSet_n5nn2")
 [node name="Objects" type="Node2D" parent="." unique_id=1478328129]
 
 [node name="MainHouse" parent="Objects" unique_id=1249830874 instance=ExtResource("6_f1pcs")]
-position = Vector2(405, 529)
+position = Vector2(254, 665)
 script = ExtResource("8_o342e")
 size_in_cells = Vector2i(2, 2)
 draggable = true
 blocks_cells = true
+use_area_footprint = true
+area_layer_name = &"Area"
+hide_area_footprint_layer = true
+use_bottom_center_footprint_anchor = true
 use_custom_footprint = true
 custom_footprint = Array[Vector2i]([])
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2041060057]
+position = Vector2(55, 590)
+zoom = Vector2(0.8, 0.8)
 script = ExtResource("7_mlpvh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1001207509]
@@ -100,3 +106,5 @@ offset_bottom = 23.0
 script = ExtResource("9_rxqed")
 
 [node name="PreviewLayer" type="TileMapLayer" parent="." unique_id=1190688442]
+position = Vector2(0, -1)
+tile_set = SubResource("TileSet_n5nn2")

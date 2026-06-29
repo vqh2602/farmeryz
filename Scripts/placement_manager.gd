@@ -3,12 +3,14 @@ class_name PlacementManager
 
 @export var edge_scroll_margin: float = 80.0
 @export var edge_scroll_speed: float = 650.0
+@export var drag_hold_seconds: float = 0.18
+@export var drag_start_distance: float = 10.0
 
 # ID tile preview trong TileSet của base.tscn:
 # 12 = xanh dương, 13 = đỏ, 14 = vàng, 15 = xanh lá.
 @export var valid_preview_source_id: int = 12
 @export var invalid_preview_source_id: int = 13
-@export var occupied_source_id: int = 12
+@export var occupied_source_id: int = 14
 @export var preview_atlas_coords: Vector2i = Vector2i(0, 0)
 
 @onready var world: Node2D = get_parent()
@@ -20,6 +22,10 @@ class_name PlacementManager
 @onready var camera: Camera2D = $"../Camera2D"
 
 var dragging_object: PlaceableObject = null
+var selected_object: PlaceableObject = null
+var pending_drag_object: PlaceableObject = null
+var pending_drag_screen_pos: Vector2 = Vector2.ZERO
+var pending_drag_start_msec: int = 0
 var current_cell: Vector2i = Vector2i.ZERO
 var is_current_cell_valid: bool = false
 
@@ -30,10 +36,10 @@ func _ready():
 	# ObjLayerBlock chỉ dùng logic, nên có thể ẩn.
 	obj_layer_block.visible = false
 
-	# PreviewLayer dùng để hiện xanh dương/đỏ khi kéo.
+	# PreviewLayer dùng để hiện footprint/occupied trong edit mode.
 	preview_layer.visible = true
 	preview_layer.modulate = Color(1, 1, 1, 0.65)
-	preview_layer.z_index = 80
+	preview_layer.z_index = 160
 
 	objects.z_index = 100
 
@@ -41,6 +47,9 @@ func _ready():
 
 
 func _process(delta):
+	if pending_drag_object != null and dragging_object == null:
+		try_promote_pending_drag()
+
 	if dragging_object != null:
 		update_edge_scroll(delta)
 
@@ -49,11 +58,17 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				try_start_drag()
+				begin_drag_press(event.position)
 			else:
-				stop_drag()
+				if dragging_object != null:
+					stop_drag()
+				else:
+					cancel_pending_drag()
 
 	if event is InputEventMouseMotion:
+		if pending_drag_object != null and dragging_object == null:
+			try_promote_pending_drag(event.position)
+
 		if dragging_object != null:
 			update_drag()
 
@@ -85,16 +100,52 @@ func register_existing_objects():
 			print("Node này KHÔNG phải PlaceableObject: ", child.name)
 
 
-func try_start_drag():
+func begin_drag_press(screen_pos: Vector2):
 	var obj: PlaceableObject = get_object_under_mouse()
 
 	if obj == null:
+		selected_object = null
+		cancel_pending_drag()
 		return
 
 	if not obj.can_drag():
 		print("Object không cho kéo: ", obj.object_id)
 		return
 
+	selected_object = obj
+	pending_drag_object = obj
+	pending_drag_screen_pos = screen_pos
+	pending_drag_start_msec = Time.get_ticks_msec()
+	current_cell = obj.current_cell
+
+
+func cancel_pending_drag():
+	pending_drag_object = null
+	pending_drag_screen_pos = Vector2.ZERO
+	pending_drag_start_msec = 0
+
+
+func try_promote_pending_drag(screen_pos: Vector2 = Vector2.INF):
+	if pending_drag_object == null:
+		return
+
+	if screen_pos == Vector2.INF:
+		screen_pos = world.get_viewport().get_mouse_position()
+
+	var elapsed_seconds: float = float(Time.get_ticks_msec() - pending_drag_start_msec) / 1000.0
+	var moved_distance: float = pending_drag_screen_pos.distance_to(screen_pos)
+
+	if elapsed_seconds < drag_hold_seconds:
+		return
+
+	if moved_distance < drag_start_distance:
+		return
+
+	start_drag(pending_drag_object)
+	cancel_pending_drag()
+
+
+func start_drag(obj: PlaceableObject):
 	dragging_object = obj
 	current_cell = obj.current_cell
 
@@ -156,7 +207,7 @@ func update_drag():
 	if not is_current_cell_valid:
 		source_id = invalid_preview_source_id
 
-	draw_preview_for_obj(dragging_object, cell, source_id)
+	draw_drag_preview_for_obj(dragging_object, cell, source_id)
 
 	print(
 		"Dragging: ", dragging_object.object_id,
@@ -231,11 +282,33 @@ func move_object_to_cell(obj: PlaceableObject, cell: Vector2i):
 
 
 func get_object_footprint_cells(obj: PlaceableObject, origin_cell: Vector2i) -> Array[Vector2i]:
+	var area_layer := obj.get_area_footprint_layer()
+	if area_layer != null and area_layer.get_used_cells().size() > 0:
+		return get_area_footprint_cells(obj, area_layer, origin_cell)
+
 	var cells: Array[Vector2i] = []
 
 	for offset in obj.get_footprint_offsets():
 		cells.append(origin_cell + offset)
 
+	return cells
+
+
+func get_area_footprint_cells(obj: PlaceableObject, area_layer: TileMapLayer, origin_cell: Vector2i) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	var seen := {}
+	var origin_local: Vector2 = ground_layer.map_to_local(origin_cell)
+
+	for area_cell in area_layer.get_used_cells():
+		var area_global: Vector2 = area_layer.to_global(area_layer.map_to_local(area_cell))
+		var area_local_to_obj: Vector2 = obj.to_local(area_global)
+		var target_cell: Vector2i = ground_layer.local_to_map(origin_local + area_local_to_obj)
+
+		if not seen.has(target_cell):
+			seen[target_cell] = true
+			cells.append(target_cell)
+
+	cells.sort()
 	return cells
 
 
@@ -269,6 +342,28 @@ func clear_preview():
 
 func draw_preview_for_obj(obj: PlaceableObject, origin_cell: Vector2i, source_id: int):
 	clear_preview()
+	draw_footprint_cells_for_obj(obj, origin_cell, source_id)
+
+
+func draw_drag_preview_for_obj(obj: PlaceableObject, origin_cell: Vector2i, source_id: int):
+	clear_preview()
+	draw_occupied_preview_except(obj)
+	draw_footprint_cells_for_obj(obj, origin_cell, source_id)
+
+
+func draw_occupied_preview_except(except_obj: PlaceableObject):
+	for child in objects.get_children():
+		if child is PlaceableObject:
+			var obj: PlaceableObject = child as PlaceableObject
+
+			if obj == except_obj:
+				continue
+
+			if obj.blocks_cells:
+				draw_footprint_cells_for_obj(obj, obj.current_cell, occupied_source_id)
+
+
+func draw_footprint_cells_for_obj(obj: PlaceableObject, origin_cell: Vector2i, source_id: int):
 
 	var cells: Array[Vector2i] = get_object_footprint_cells(obj, origin_cell)
 

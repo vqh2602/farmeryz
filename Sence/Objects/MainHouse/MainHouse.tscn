@@ -1,10 +1,26 @@
-[gd_scene format=3 uid="uid://boa22tbhjb5rm"]
+[gd_scene format=4 uid="uid://boa22tbhjb5rm"]
 
 [ext_resource type="Script" uid="uid://c15ti0ebau4wt" path="res://Sence/Objects/MainHouse/main_house.gd" id="1_mainhouse_script"]
 [ext_resource type="Texture2D" uid="uid://cv46h7xulkwux" path="res://Arts/congtrinh/nhachinh1.png" id="2_mainhouse_texture"]
+[ext_resource type="Texture2D" uid="uid://bj8pvpv17nvsv" path="res://Arts/Map/tile_green.png" id="3_y21xh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j47nk"]
+texture = ExtResource("3_y21xh")
+texture_region_size = Vector2i(127, 74)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_syybp"]
+tile_shape = 1
+tile_size = Vector2i(127, 74)
+sources/1 = SubResource("TileSetAtlasSource_j47nk")
 
 [node name="MainHouse" type="Node2D" unique_id=1692971784]
 script = ExtResource("1_mainhouse_script")
+
+[node name="Area" type="TileMapLayer" parent="." unique_id=1082364920]
+modulate = Color(1, 1, 1, 0.18039216)
+tile_map_data = PackedByteArray("AAD///7/AQAAAAAAAAD+////AQAAAAAAAAD+//7/AQAAAAAAAAD+//3/AQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAD9//3/AQAAAAAAAAD+//z/AQAAAAAAAAAAAP//AQAAAAAAAAABAP7/AQAAAAAAAAAAAP7/AQAAAAAAAAAAAP3/AQAAAAAAAAABAPz/AQAAAAAAAAABAP3/AQAAAAAAAAAAAAAAAQAAAAAAAAD///3/AQAAAAAAAAD///z/AQAAAAAAAAAAAPz/AQAAAAAAAAD///v/AQAAAAAAAAD+//v/AQAAAAAAAAD///r/AQAAAAAAAAD///n/AQAAAAAAAAAAAPr/AQAAAAAAAAAAAPv/AQAAAAAAAAD//wEAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_syybp")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=575977701]
 position = Vector2(-254, -330)
