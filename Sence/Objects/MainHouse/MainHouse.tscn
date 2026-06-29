@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://boa22tbhjb5rm"]
+
+[ext_resource type="Script" uid="uid://c15ti0ebau4wt" path="res://Sence/Objects/MainHouse/main_house.gd" id="1_mainhouse_script"]
+[ext_resource type="Texture2D" uid="uid://cv46h7xulkwux" path="res://Arts/congtrinh/nhachinh1.png" id="2_mainhouse_texture"]
+
+[node name="MainHouse" type="Node2D" unique_id=1692971784]
+script = ExtResource("1_mainhouse_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=575977701]
+position = Vector2(-254, -330)
+texture = ExtResource("2_mainhouse_texture")
+centered = false

@@ -1,0 +1,69 @@
+
+granma.png
+size: 1855,1154
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+baptay1
+  rotate: false
+  xy: 778, 17
+  size: 611, 447
+  orig: 613, 449
+  offset: 1, 1
+  index: -1
+baptay2
+  rotate: true
+  xy: 1580, 794
+  size: 358, 273
+  orig: 360, 276
+  offset: 1, 2
+  index: -1
+canhtay1
+  rotate: false
+  xy: 1572, 57
+  size: 203, 327
+  orig: 205, 329
+  offset: 1, 1
+  index: -1
+canhtay2
+  rotate: false
+  xy: 1391, 149
+  size: 179, 315
+  orig: 181, 317
+  offset: 1, 1
+  index: -1
+chan1
+  rotate: false
+  xy: 2, 2
+  size: 193, 438
+  orig: 195, 440
+  offset: 1, 1
+  index: -1
+chan2
+  rotate: false
+  xy: 1580, 386
+  size: 219, 406
+  orig: 221, 408
+  offset: 1, 1
+  index: -1
+dau
+  rotate: true
+  xy: 197, 15
+  size: 425, 579
+  orig: 427, 581
+  offset: 1, 1
+  index: -1
+shadow
+  rotate: true
+  xy: 2, 442
+  size: 710, 351
+  orig: 736, 377
+  offset: 13, 13
+  index: -1
+than
+  rotate: true
+  xy: 355, 466
+  size: 686, 1223
+  orig: 688, 1225
+  offset: 1, 1
+  index: -1

@@ -1,0 +1,55 @@
+
+chicken.png
+size: 559,578
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+canh1
+  rotate: true
+  xy: 246, 24
+  size: 182, 149
+  orig: 184, 152
+  offset: 1, 1
+  index: -1
+canh2
+  rotate: true
+  xy: 397, 24
+  size: 182, 149
+  orig: 184, 152
+  offset: 1, 1
+  index: -1
+chan1
+  rotate: false
+  xy: 437, 430
+  size: 86, 146
+  orig: 88, 148
+  offset: 1, 1
+  index: -1
+chan2
+  rotate: false
+  xy: 437, 430
+  size: 86, 146
+  orig: 88, 148
+  offset: 1, 1
+  index: -1
+mo
+  rotate: true
+  xy: 2, 338
+  size: 238, 433
+  orig: 240, 435
+  offset: 1, 1
+  index: -1
+shadow
+  rotate: false
+  xy: 246, 208
+  size: 311, 128
+  orig: 321, 138
+  offset: 5, 5
+  index: -1
+than
+  rotate: true
+  xy: 2, 2
+  size: 334, 242
+  orig: 336, 268
+  offset: 1, 1
+  index: -1

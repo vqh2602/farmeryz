@@ -1,0 +1,104 @@
+
+cow_stand.png
+size: 817,1081
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 419
+  size: 607, 414
+  orig: 609, 416
+  offset: 1, 1
+  index: -1
+bung
+  rotate: false
+  xy: 611, 324
+  size: 181, 135
+  orig: 183, 137
+  offset: 1, 1
+  index: -1
+chansau
+  rotate: true
+  xy: 611, 697
+  size: 132, 204
+  orig: 134, 206
+  offset: 1, 1
+  index: -1
+chansau2
+  rotate: true
+  xy: 611, 697
+  size: 132, 204
+  orig: 134, 206
+  offset: 1, 1
+  index: -1
+chantrc1
+  rotate: true
+  xy: 611, 603
+  size: 92, 198
+  orig: 94, 200
+  offset: 1, 1
+  index: -1
+chantrc2
+  rotate: true
+  xy: 611, 603
+  size: 92, 198
+  orig: 94, 200
+  offset: 1, 1
+  index: -1
+dau
+  rotate: false
+  xy: 2, 2
+  size: 475, 415
+  orig: 477, 417
+  offset: 1, 1
+  index: -1
+duisau1
+  rotate: true
+  xy: 611, 461
+  size: 140, 190
+  orig: 142, 200
+  offset: 1, 9
+  index: -1
+duisau2
+  rotate: true
+  xy: 611, 461
+  size: 140, 190
+  orig: 142, 200
+  offset: 1, 9
+  index: -1
+duitrc1
+  rotate: true
+  xy: 652, 972
+  size: 107, 148
+  orig: 109, 151
+  offset: 1, 2
+  index: -1
+duitrc2
+  rotate: true
+  xy: 652, 972
+  size: 107, 148
+  orig: 109, 151
+  offset: 1, 2
+  index: -1
+duoi
+  rotate: false
+  xy: 479, 10
+  size: 292, 312
+  orig: 295, 314
+  offset: 1, 1
+  index: -1
+mom
+  rotate: false
+  xy: 652, 831
+  size: 143, 139
+  orig: 145, 141
+  offset: 1, 1
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 835
+  size: 648, 244
+  orig: 658, 254
+  offset: 5, 5
+  index: -1

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 5e64bb37b7fc67448b7e96e467214dbd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: UTM Facebook K&T
+  fontNames:
+  - UTM Facebook K&T
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 3a704bdd00cc398429248ee77a529f81, type: 3}
+  - {fileID: 12800000, guid: e6210d5fec64e9a419121967c59545e3, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

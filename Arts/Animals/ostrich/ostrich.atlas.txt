@@ -1,0 +1,76 @@
+
+ostrich.png
+size: 1452,380
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+canh1
+  rotate: true
+  xy: 1281, 71
+  size: 307, 169
+  orig: 309, 171
+  offset: 1, 1
+  index: -1
+canh2
+  rotate: true
+  xy: 1281, 71
+  size: 307, 169
+  orig: 309, 171
+  offset: 1, 1
+  index: -1
+chan1
+  rotate: true
+  xy: 853, 7
+  size: 193, 238
+  orig: 195, 240
+  offset: 1, 1
+  index: -1
+chan2
+  rotate: true
+  xy: 853, 7
+  size: 193, 238
+  orig: 195, 240
+  offset: 1, 1
+  index: -1
+dau
+  rotate: false
+  xy: 2, 2
+  size: 329, 376
+  orig: 331, 378
+  offset: 1, 1
+  index: -1
+dui1
+  rotate: false
+  xy: 1093, 13
+  size: 165, 187
+  orig: 168, 189
+  offset: 1, 1
+  index: -1
+dui2
+  rotate: false
+  xy: 1093, 13
+  size: 165, 187
+  orig: 168, 189
+  offset: 1, 1
+  index: -1
+duoi
+  rotate: true
+  xy: 606, 52
+  size: 326, 245
+  orig: 328, 247
+  offset: 1, 1
+  index: -1
+shadow
+  rotate: false
+  xy: 853, 202
+  size: 426, 176
+  orig: 439, 189
+  offset: 6, 7
+  index: -1
+than
+  rotate: true
+  xy: 333, 11
+  size: 367, 271
+  orig: 369, 273
+  offset: 1, 1
+  index: -1

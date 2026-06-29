@@ -1,0 +1,90 @@
+
+sheep.png
+size: 1705,474
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 4
+  size: 628, 468
+  orig: 630, 470
+  offset: 1, 1
+  index: -1
+chansau
+  rotate: false
+  xy: 1055, 2
+  size: 145, 224
+  orig: 147, 226
+  offset: 1, 1
+  index: -1
+chansau2
+  rotate: false
+  xy: 1055, 2
+  size: 145, 224
+  orig: 147, 226
+  offset: 1, 1
+  index: -1
+chantrc1
+  rotate: false
+  xy: 1344, 7
+  size: 103, 219
+  orig: 105, 221
+  offset: 1, 1
+  index: -1
+chantrc2
+  rotate: false
+  xy: 1344, 7
+  size: 103, 219
+  orig: 105, 221
+  offset: 1, 1
+  index: -1
+dau
+  rotate: true
+  xy: 632, 42
+  size: 430, 421
+  orig: 432, 423
+  offset: 1, 1
+  index: -1
+duisau1
+  rotate: false
+  xy: 1202, 63
+  size: 140, 163
+  orig: 142, 165
+  offset: 1, 1
+  index: -1
+duisau2
+  rotate: false
+  xy: 1202, 63
+  size: 140, 163
+  orig: 142, 165
+  offset: 1, 1
+  index: -1
+duitrc1
+  rotate: false
+  xy: 1578, 83
+  size: 107, 143
+  orig: 109, 145
+  offset: 1, 1
+  index: -1
+duitrc2
+  rotate: false
+  xy: 1578, 83
+  size: 107, 143
+  orig: 109, 145
+  offset: 1, 1
+  index: -1
+duoi
+  rotate: false
+  xy: 1449, 84
+  size: 127, 142
+  orig: 129, 144
+  offset: 1, 1
+  index: -1
+shadow
+  rotate: false
+  xy: 1055, 228
+  size: 648, 244
+  orig: 658, 254
+  offset: 5, 5
+  index: -1

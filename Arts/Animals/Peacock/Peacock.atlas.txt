@@ -1,0 +1,62 @@
+
+Peacock.png
+size: 1679,779
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+canh
+  rotate: false
+  xy: 1484, 106
+  size: 193, 139
+  orig: 196, 141
+  offset: 2, 1
+  index: -1
+chan1
+  rotate: true
+  xy: 1484, 21
+  size: 83, 177
+  orig: 85, 179
+  offset: 1, 1
+  index: -1
+chan2
+  rotate: true
+  xy: 1484, 21
+  size: 83, 177
+  orig: 85, 179
+  offset: 1, 1
+  index: -1
+dau
+  rotate: true
+  xy: 1161, 560
+  size: 217, 509
+  orig: 219, 511
+  offset: 1, 1
+  index: -1
+duoi1
+  rotate: false
+  xy: 1161, 258
+  size: 385, 300
+  orig: 387, 302
+  offset: 1, 1
+  index: -1
+duoi2
+  rotate: false
+  xy: 2, 2
+  size: 1157, 775
+  orig: 1159, 778
+  offset: 1, 2
+  index: -1
+shadow
+  rotate: true
+  xy: 1548, 247
+  size: 311, 128
+  orig: 321, 138
+  offset: 5, 5
+  index: -1
+than
+  rotate: false
+  xy: 1161, 33
+  size: 321, 212
+  orig: 323, 261
+  offset: 1, 1
+  index: -1
