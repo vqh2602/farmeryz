@@ -4,12 +4,11 @@ class_name PlacementManager
 @export var edge_scroll_margin: float = 80.0
 @export var edge_scroll_speed: float = 650.0
 
-# ID tile preview.
-# Bạn đã thấy tile_red.png ID = 13.
-# Click tile xanh/vàng để lấy ID tương ứng.
-@export var green_preview_source_id: int = 13
-@export var red_preview_source_id: int = 15
-@export var occupied_source_id: int = 13
+# ID tile preview trong TileSet của base.tscn:
+# 12 = xanh dương, 13 = đỏ, 14 = vàng, 15 = xanh lá.
+@export var valid_preview_source_id: int = 12
+@export var invalid_preview_source_id: int = 13
+@export var occupied_source_id: int = 12
 @export var preview_atlas_coords: Vector2i = Vector2i(0, 0)
 
 @onready var world: Node2D = get_parent()
@@ -31,7 +30,7 @@ func _ready():
 	# ObjLayerBlock chỉ dùng logic, nên có thể ẩn.
 	obj_layer_block.visible = false
 
-	# PreviewLayer dùng để hiện xanh/đỏ khi kéo.
+	# PreviewLayer dùng để hiện xanh dương/đỏ khi kéo.
 	preview_layer.visible = true
 	preview_layer.modulate = Color(1, 1, 1, 0.65)
 	preview_layer.z_index = 80
@@ -153,9 +152,9 @@ func update_drag():
 
 	is_current_cell_valid = can_place_object_for_obj(dragging_object, cell)
 
-	var source_id: int = green_preview_source_id
+	var source_id: int = valid_preview_source_id
 	if not is_current_cell_valid:
-		source_id = red_preview_source_id
+		source_id = invalid_preview_source_id
 
 	draw_preview_for_obj(dragging_object, cell, source_id)
 
