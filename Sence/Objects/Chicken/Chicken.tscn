@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cckqtulqblpc5"]
+
+[ext_resource type="Script" uid="uid://b8krhndoq81cf" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Texture2D" uid="uid://bj8pvpv17nvsv" path="res://Arts/Map/tile_green.png" id="2_3cmjn"]
+[ext_resource type="Script" uid="uid://dc4r5x1uhvx87" path="res://Sence/Objects/Chicken/chicken_anim.gd" id="2_anim"]
+[ext_resource type="Texture2D" uid="uid://cd50n7m4sfcx" path="res://Arts/Animals/chicken_clone/images/body_tail.png" id="3_body"]
+[ext_resource type="Texture2D" uid="uid://6whwg7whigs3" path="res://Arts/Animals/chicken_clone/images/head_front.png" id="4_head"]
+[ext_resource type="Texture2D" uid="uid://bc3xkr806cmgb" path="res://Arts/Animals/chicken_clone/images/leg_back.png" id="5_legback"]
+[ext_resource type="Texture2D" uid="uid://c5xkn45bpgdmd" path="res://Arts/Animals/chicken_clone/images/leg_front.png" id="6_legfront"]
+[ext_resource type="Texture2D" uid="uid://cldtkqsd4hfq2" path="res://Arts/Animals/chicken_clone/images/wing.png" id="7_wing"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmeky"]
+texture = ExtResource("2_3cmjn")
+texture_region_size = Vector2i(127, 74)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_syybp"]
+tile_shape = 1
+tile_size = Vector2i(127, 74)
+sources/0 = SubResource("TileSetAtlasSource_vmeky")
+
+[node name="Chicken" type="Node2D" unique_id=2078249234]
+script = ExtResource("1_placeable")
+object_id = "chicken"
+display_name = "Chicken"
+blocks_cells = false
+
+[node name="Area" type="TileMapLayer" parent="." unique_id=1613798422]
+tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_syybp")
+script = ExtResource("2_anim")
+
+[node name="Visual" type="Node2D" parent="." unique_id=2109676133]
+position = Vector2(0, -69)
+scale = Vector2(0.35, 0.35)
+script = ExtResource("2_anim")
+wander_radius = 100.0
+
+[node name="LegBackPivot" type="Node2D" parent="Visual" unique_id=917374494]
+position = Vector2(-42, 120)
+
+[node name="LegBack" type="Sprite2D" parent="Visual/LegBackPivot" unique_id=2042518528]
+position = Vector2(0, 52)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_legback")
+
+[node name="LegFrontPivot" type="Node2D" parent="Visual" unique_id=1026275709]
+z_index = 1
+position = Vector2(42, 120)
+
+[node name="LegFront" type="Sprite2D" parent="Visual/LegFrontPivot" unique_id=521258251]
+position = Vector2(0, 52)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("6_legfront")
+
+[node name="BodyPivot" type="Node2D" parent="Visual" unique_id=319889647]
+z_index = 2
+position = Vector2(-38, 0)
+
+[node name="Body" type="Sprite2D" parent="Visual/BodyPivot" unique_id=1290792051]
+texture = ExtResource("3_body")
+
+[node name="WingPivot" type="Node2D" parent="Visual" unique_id=1862984523]
+z_index = 4
+position = Vector2(-8, 46)
+
+[node name="Wing" type="Sprite2D" parent="Visual/WingPivot" unique_id=1093768568]
+position = Vector2(-83.428566, -11.714285)
+scale = Vector2(0.82, 0.82)
+texture = ExtResource("7_wing")
+
+[node name="HeadPivot" type="Node2D" parent="Visual" unique_id=82103164]
+z_index = 5
+position = Vector2(26, -46)
+
+[node name="Head" type="Sprite2D" parent="Visual/HeadPivot" unique_id=1152078241]
+position = Vector2(-0.28571272, -116.85716)
+scale = Vector2(0.78, 0.78)
+texture = ExtResource("4_head")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=276634162]

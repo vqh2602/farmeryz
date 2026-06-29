@@ -4,21 +4,23 @@ extends Node2D
 @export var idle_bob_speed: float = 3.0
 
 @export var walk_speed: float = 45.0
-@export var walk_leg_angle: float = 0.25
-@export var walk_bob_amount: float = 3.0
+@export var walk_leg_angle: float = 0.18
+@export var walk_bob_amount: float = 2.0
 
 @export var can_wander: bool = true
 @export var wander_radius: float = 120.0
 @export var min_idle_time: float = 1.5
 @export var max_idle_time: float = 3.5
 
+@export var allow_flip: bool = true
+
 @onready var chicken_root: Node2D = get_parent()
 
-@onready var leg_back_pivot: Node2D = $LegBackPivot
-@onready var leg_front_pivot: Node2D = $LegFrontPivot
-@onready var body_pivot: Node2D = $BodyPivot
-@onready var wing_pivot: Node2D = $WingPivot
-@onready var head_pivot: Node2D = $HeadPivot
+@onready var leg_back_pivot: Node2D = get_node_or_null("LegBackPivot")
+@onready var leg_front_pivot: Node2D = get_node_or_null("LegFrontPivot")
+@onready var body_pivot: Node2D = get_node_or_null("BodyPivot")
+@onready var wing_pivot: Node2D = get_node_or_null("WingPivot")
+@onready var head_pivot: Node2D = get_node_or_null("HeadPivot")
 
 var time: float = 0.0
 
@@ -42,11 +44,16 @@ var facing_dir: int = 1
 func _ready():
 	randomize()
 
+	if not _validate_nodes():
+		set_process(false)
+		return
+
 	base_scale = scale
 	base_position = chicken_root.position
 
 	body_base_pos = body_pivot.position
 	head_base_pos = head_pivot.position
+
 	wing_base_rot = wing_pivot.rotation
 	leg_back_base_rot = leg_back_pivot.rotation
 	leg_front_base_rot = leg_front_pivot.rotation
@@ -68,6 +75,34 @@ func _process(delta):
 		_update_idle_anim(delta)
 
 
+func _validate_nodes() -> bool:
+	if chicken_root == null:
+		push_error("ChickenAnim lỗi: script phải gắn vào node Visual, Visual phải nằm dưới Chicken.")
+		return false
+
+	if leg_back_pivot == null:
+		push_error("Thiếu node: Visual/LegBackPivot")
+		return false
+
+	if leg_front_pivot == null:
+		push_error("Thiếu node: Visual/LegFrontPivot")
+		return false
+
+	if body_pivot == null:
+		push_error("Thiếu node: Visual/BodyPivot")
+		return false
+
+	if wing_pivot == null:
+		push_error("Thiếu node: Visual/WingPivot")
+		return false
+
+	if head_pivot == null:
+		push_error("Thiếu node: Visual/HeadPivot")
+		return false
+
+	return true
+
+
 func _process_wander(delta):
 	if is_pecking:
 		return
@@ -84,7 +119,7 @@ func _process_wander(delta):
 		var move_dir: Vector2 = dir.normalized()
 		chicken_root.position += move_dir * walk_speed * delta
 
-		if abs(move_dir.x) > 0.05:
+		if allow_flip and abs(move_dir.x) > 0.05:
 			set_facing(-1 if move_dir.x < 0 else 1)
 
 	else:
@@ -103,9 +138,8 @@ func set_facing(dir: int):
 
 	facing_dir = dir
 
-	# Quan trọng:
-	# Không dùng scale.x = -1 hoặc 1 trực tiếp.
-	# Phải giữ nguyên độ lớn scale ban đầu, chỉ đổi dấu.
+	# Không set scale.x = 1 / -1 trực tiếp vì sẽ làm méo nếu Visual đang scale 0.4.
+	# Giữ nguyên độ lớn scale ban đầu, chỉ đổi dấu x.
 	scale = Vector2(abs(base_scale.x) * facing_dir, base_scale.y)
 
 
@@ -131,7 +165,7 @@ func _update_walk_anim(_delta):
 	leg_back_pivot.rotation = leg_back_base_rot + step * walk_leg_angle
 	leg_front_pivot.rotation = leg_front_base_rot - step * walk_leg_angle
 
-	wing_pivot.rotation = wing_base_rot + sin(time * 8.0) * 0.06
+	wing_pivot.rotation = wing_base_rot + sin(time * 8.0) * 0.05
 
 
 func _start_idle_timer():
