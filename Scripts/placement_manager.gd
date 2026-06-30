@@ -20,12 +20,18 @@ class_name PlacementManager
 @onready var preview_layer: TileMapLayer = $"../PreviewLayer"
 @onready var objects: Node2D = $"../Objects"
 @onready var camera: Camera2D = $"../Camera2D"
+@onready var main_ui: CanvasLayer = $"../MainUI"
 
 var dragging_object: PlaceableObject = null
 var selected_object: PlaceableObject = null
 var pending_drag_object: PlaceableObject = null
 var pending_drag_screen_pos: Vector2 = Vector2.ZERO
 var pending_drag_start_msec: int = 0
+var shop_spawn_object: PlaceableObject = null
+var shop_spawn_start_screen_pos: Vector2 = Vector2.ZERO
+var shop_spawn_has_moved: bool = false
+var shop_spawn_counter: int = 0
+var drag_original_z_indexes: Dictionary = {}
 var current_cell: Vector2i = Vector2i.ZERO
 var is_current_cell_valid: bool = false
 
@@ -57,20 +63,35 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
+			if dragging_object != null:
+				if not event.pressed:
+					if dragging_object == shop_spawn_object and not shop_spawn_has_moved:
+						return
+
+					stop_drag()
+				return
+
 			if event.pressed:
 				begin_drag_press(event.position)
 			else:
-				if dragging_object != null:
-					stop_drag()
-				else:
-					cancel_pending_drag()
+				cancel_pending_drag()
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			if dragging_object == shop_spawn_object:
+				cancel_shop_spawn()
 
 	if event is InputEventMouseMotion:
+		if dragging_object == shop_spawn_object:
+			shop_spawn_has_moved = shop_spawn_has_moved or shop_spawn_start_screen_pos.distance_to(event.position) >= drag_start_distance
+
 		if pending_drag_object != null and dragging_object == null:
 			try_promote_pending_drag(event.position)
 
 		if dragging_object != null:
 			update_drag()
+
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_ESCAPE and dragging_object == shop_spawn_object:
+			cancel_shop_spawn()
 
 
 func register_existing_objects():
@@ -105,6 +126,7 @@ func begin_drag_press(screen_pos: Vector2):
 
 	if obj == null:
 		selected_object = null
+		hide_animation_controls()
 		cancel_pending_drag()
 		return
 
@@ -146,6 +168,9 @@ func try_promote_pending_drag(screen_pos: Vector2 = Vector2.INF):
 
 
 func start_drag(obj: PlaceableObject):
+	if dragging_object != null:
+		return
+
 	dragging_object = obj
 	current_cell = obj.current_cell
 
@@ -155,6 +180,7 @@ func start_drag(obj: PlaceableObject):
 	print("Total cells: ", obj.get_total_occupied_cells())
 
 	set_object_drag_visual(obj, true)
+	show_animation_controls_for(obj)
 
 	# Khi kéo object, bỏ vùng chiếm cũ của chính nó khỏi logic
 	# để nó có thể kéo lại trên vị trí cũ mà không bị báo va chạm.
@@ -168,6 +194,7 @@ func stop_drag():
 		return
 
 	var obj: PlaceableObject = dragging_object
+	var is_shop_spawn := obj == shop_spawn_object
 
 	if can_place_object_for_obj(obj, current_cell):
 		move_object_to_cell(obj, current_cell)
@@ -175,12 +202,26 @@ func stop_drag():
 
 		set_object_drag_visual(obj, false)
 		dragging_object = null
+		if is_shop_spawn:
+			clear_shop_spawn_state()
 
 		clear_preview()
 		rebuild_occupied_cells()
+		show_animation_controls_for(obj)
 
 		print("Đặt object thành công: ", obj.object_id, " tại ô: ", current_cell)
 	else:
+		if is_shop_spawn:
+			remove_shop_spawn_object()
+			dragging_object = null
+
+			clear_preview()
+			rebuild_occupied_cells()
+			hide_animation_controls()
+
+			print("Huỷ đặt object mới do ô không hợp lệ: ", obj.object_id)
+			return
+
 		move_object_to_cell(obj, obj.current_cell)
 
 		set_object_drag_visual(obj, false)
@@ -188,6 +229,7 @@ func stop_drag():
 
 		clear_preview()
 		rebuild_occupied_cells()
+		show_animation_controls_for(obj)
 
 		print("Không thể đặt object tại ô: ", current_cell, " trả về: ", obj.current_cell)
 
@@ -219,11 +261,156 @@ func update_drag():
 	)
 
 
+func start_build_from_shop_item(item: Dictionary) -> PlaceableObject:
+	if dragging_object != null:
+		return null
+
+	var scene_path: String = item.get("scene", "")
+	if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
+		push_warning("Không có scene xây dựng hợp lệ cho item: %s" % item.get("name", "unknown"))
+		return null
+
+	var packed_scene := load(scene_path) as PackedScene
+	if packed_scene == null:
+		push_warning("Không load được scene xây dựng: %s" % scene_path)
+		return null
+
+	if item.has("animal_pen_type"):
+		return place_animal_from_shop_item(item, packed_scene)
+
+	shop_spawn_counter += 1
+
+	var instance := packed_scene.instantiate()
+	if not instance is PlaceableObject:
+		push_warning("Scene xây dựng phải có root PlaceableObject: %s" % scene_path)
+		instance.queue_free()
+		return null
+
+	var obj := instance as PlaceableObject
+	var base_id: String = item.get("id", obj.object_id)
+	obj.name = _make_unique_object_name(base_id)
+	obj.object_id = "%s_%03d" % [base_id, shop_spawn_counter]
+	obj.display_name = item.get("name", obj.display_name)
+
+	objects.add_child(obj)
+
+	var spawn_cell := get_mouse_cell()
+	obj.set_cell(spawn_cell)
+	move_object_to_cell(obj, spawn_cell)
+
+	shop_spawn_object = obj
+	shop_spawn_start_screen_pos = world.get_viewport().get_mouse_position()
+	shop_spawn_has_moved = false
+
+	start_drag(obj)
+	return obj
+
+
+func place_animal_from_shop_item(item: Dictionary, packed_scene: PackedScene) -> PlaceableObject:
+	var pen_type: String = item.get("animal_pen_type", "")
+	var pen := find_available_animal_pen(pen_type)
+	if pen == null:
+		push_warning("Chưa có chuồng phù hợp cho animal: %s / %s" % [item.get("name", "unknown"), pen_type])
+		return null
+
+	shop_spawn_counter += 1
+	var instance := packed_scene.instantiate()
+	if not instance is PlaceableObject:
+		push_warning("Scene animal phải có root PlaceableObject: %s" % item.get("scene", "unknown"))
+		instance.queue_free()
+		return null
+
+	var obj := instance as PlaceableObject
+	var base_id: String = item.get("id", obj.object_id)
+	obj.name = _make_unique_object_name(base_id)
+	obj.object_id = "%s_%03d" % [base_id, shop_spawn_counter]
+	obj.display_name = item.get("name", obj.display_name)
+
+	objects.add_child(obj)
+	pen.add_animal(obj)
+	hide_animation_controls()
+	return obj
+
+
+func find_available_animal_pen(pen_type: String) -> AnimalPenObject:
+	for child in objects.get_children():
+		if child is AnimalPenObject:
+			var pen := child as AnimalPenObject
+			if pen.accepts_animal_type(pen_type):
+				return pen
+
+	return null
+
+
+func cancel_shop_spawn():
+	if dragging_object != shop_spawn_object:
+		return
+
+	remove_shop_spawn_object()
+	dragging_object = null
+	clear_preview()
+	rebuild_occupied_cells()
+	hide_animation_controls()
+
+
+func remove_shop_spawn_object():
+	var obj := shop_spawn_object
+	clear_shop_spawn_state()
+
+	if obj != null and is_instance_valid(obj):
+		obj.queue_free()
+
+
+func clear_shop_spawn_state():
+	shop_spawn_object = null
+	shop_spawn_start_screen_pos = Vector2.ZERO
+	shop_spawn_has_moved = false
+
+
+func _make_unique_object_name(base_name: String) -> String:
+	var clean_name := _sanitize_object_name(base_name)
+	if clean_name.is_empty():
+		clean_name = "shop_object"
+
+	var candidate := clean_name
+	var suffix := 1
+	while objects.has_node(candidate):
+		suffix += 1
+		candidate = "%s_%d" % [clean_name, suffix]
+
+	return candidate
+
+
+func _sanitize_object_name(value: String) -> String:
+	var clean := value.strip_edges().to_lower()
+	clean = clean.replace(" ", "_")
+	clean = clean.replace("-", "_")
+	clean = clean.replace(".", "_")
+	clean = clean.replace("/", "_")
+	return clean
+
+
 func set_object_drag_visual(obj: PlaceableObject, is_dragging: bool):
 	if is_dragging:
-		obj.modulate = Color(1, 1, 1, 0.55)
+		if not drag_original_z_indexes.has(obj):
+			drag_original_z_indexes[obj] = obj.z_index
+		obj.z_index = preview_layer.z_index + 10
+		obj.modulate = Color(1, 1, 1, 0.86)
 	else:
 		obj.modulate = Color(1, 1, 1, 1.0)
+		if drag_original_z_indexes.has(obj):
+			obj.z_index = drag_original_z_indexes[obj]
+			drag_original_z_indexes.erase(obj)
+
+
+func show_animation_controls_for(obj: PlaceableObject) -> void:
+	if main_ui != null and main_ui.has_method("show_animation_controls"):
+		main_ui.call("show_animation_controls", obj)
+
+
+func hide_animation_controls() -> void:
+	if main_ui != null and main_ui.has_method("hide_animation_controls"):
+		main_ui.call("hide_animation_controls")
 
 
 func get_dragging_info_text() -> String:
@@ -252,18 +439,25 @@ func get_object_under_mouse() -> PlaceableObject:
 	for child in children:
 		if child is PlaceableObject:
 			var obj: PlaceableObject = child as PlaceableObject
-			var sprite: Sprite2D = obj.get_node_or_null("Sprite2D") as Sprite2D
-
-			if sprite == null:
-				continue
-
-			var mouse_local: Vector2 = sprite.to_local(mouse_global)
-			var rect: Rect2 = sprite.get_rect()
-
-			if rect.has_point(mouse_local):
+			if object_contains_world_point(obj, mouse_global):
 				return obj
 
 	return null
+
+
+func object_contains_world_point(node: Node, world_point: Vector2) -> bool:
+	if node is Sprite2D:
+		var sprite := node as Sprite2D
+		if sprite.visible:
+			var mouse_local: Vector2 = sprite.to_local(world_point)
+			if sprite.get_rect().has_point(mouse_local):
+				return true
+
+	for child in node.get_children():
+		if object_contains_world_point(child, world_point):
+			return true
+
+	return false
 
 
 func get_mouse_cell() -> Vector2i:

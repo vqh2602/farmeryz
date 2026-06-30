@@ -1,0 +1,330 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase 2/goldsmith",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase 2/goldsmith/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase 2/goldsmith/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 8,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 8
+    },
+    "active": {
+      "position": 0,
+      "scale": 2,
+      "visible": 8,
+      "position_keys": 0,
+      "scale_keys": 12,
+      "visible_keys": 39
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 11,
+  "texture_count": 11,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {
+        "Goldsmith_frame8": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame7": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame6": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame5": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame4": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame3": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame2": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame1": [
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "active": {
+      "length": 1.85,
+      "position": {},
+      "scale": {
+        "Goldsmith_room": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.25,
+            1.0,
+            1.0
+          ],
+          [
+            0.41666666,
+            1.0,
+            1.1
+          ],
+          [
+            0.6666667,
+            1.0,
+            0.9
+          ],
+          [
+            0.8333333,
+            1.0,
+            1.0
+          ],
+          [
+            1.85,
+            1.0,
+            1.0
+          ]
+        ],
+        "Goldsmith_chimney": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.0
+          ],
+          [
+            0.6666667,
+            1.0,
+            1.1
+          ],
+          [
+            0.8333333,
+            1.0,
+            0.9
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.85,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {
+        "Goldsmith_frame8": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.6666666,
+            1.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame7": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.5833334,
+            1.0
+          ],
+          [
+            1.6666666,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame6": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.5,
+            1.0
+          ],
+          [
+            1.5833334,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame5": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.4166666,
+            1.0
+          ],
+          [
+            1.5,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame4": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.3333334,
+            1.0
+          ],
+          [
+            1.4166666,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame3": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.25,
+            1.0
+          ],
+          [
+            1.3333334,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame2": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.1666666,
+            1.0
+          ],
+          [
+            1.25,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ],
+        "Goldsmith_frame1": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.0833334,
+            1.0
+          ],
+          [
+            1.1666666,
+            0.0
+          ],
+          [
+            1.85,
+            0.0
+          ]
+        ]
+      }
+    }
+  }
+}

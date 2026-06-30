@@ -1,0 +1,127 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase 2/cake_bakery",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase 2/cake_bakery/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase 2/cake_bakery/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 0
+    },
+    "active": {
+      "position": 2,
+      "scale": 0,
+      "visible": 1,
+      "position_keys": 12,
+      "scale_keys": 0,
+      "visible_keys": 4
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 5,
+  "texture_count": 5,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {}
+    },
+    "active": {
+      "length": 2.0,
+      "position": {
+        "cake_bakery_button": [
+          [
+            0.0,
+            -62.0,
+            17.8
+          ],
+          [
+            0.5,
+            -62.0,
+            10.7
+          ],
+          [
+            1.0,
+            -62.0,
+            22.2
+          ],
+          [
+            1.4833333,
+            -62.0,
+            10.7
+          ],
+          [
+            2.0,
+            -62.0,
+            17.8
+          ]
+        ],
+        "candy_factory_lidcakebox": [
+          [
+            0.0,
+            128.0,
+            124.0
+          ],
+          [
+            0.33333334,
+            128.0,
+            105.0
+          ],
+          [
+            0.8333333,
+            128.0,
+            118.0
+          ],
+          [
+            1.1666666,
+            128.0,
+            105.0
+          ],
+          [
+            1.4833333,
+            128.0,
+            122.0
+          ],
+          [
+            1.75,
+            128.0,
+            112.0
+          ],
+          [
+            2.0,
+            128.0,
+            124.0
+          ]
+        ]
+      },
+      "scale": {},
+      "visible": {
+        "cake_bakery_door": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            1.0,
+            0.0
+          ],
+          [
+            1.3333334,
+            1.0
+          ],
+          [
+            2.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  }
+}

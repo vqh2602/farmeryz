@@ -1,0 +1,117 @@
+{
+  "source_folder": "res://Arts/factory/Dairy",
+  "source_files": {
+    "active": "res://Arts/factory/Dairy/active.anim"
+  },
+  "missing_anim_files": [
+    "idle.anim"
+  ],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 0
+    },
+    "active": {
+      "position": 2,
+      "scale": 1,
+      "visible": 0,
+      "position_keys": 9,
+      "scale_keys": 4,
+      "visible_keys": 0
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 3,
+  "texture_count": 3,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {}
+    },
+    "active": {
+      "length": 2.1666667,
+      "position": {
+        "may1": [
+          [
+            0.0,
+            -6.0,
+            -138.0
+          ],
+          [
+            0.5,
+            -6.0,
+            -125.87
+          ],
+          [
+            1.0,
+            -6.0,
+            -138.0
+          ],
+          [
+            1.5,
+            -6.1,
+            -138.0
+          ],
+          [
+            1.5833334,
+            -6.0,
+            -138.0
+          ],
+          [
+            1.6666666,
+            -6.0,
+            -138.0
+          ]
+        ],
+        "thungsua": [
+          [
+            1.8333334,
+            88.0,
+            -86.5
+          ],
+          [
+            2.0,
+            88.0,
+            -140.29999999999998
+          ],
+          [
+            2.1666667,
+            88.0,
+            -86.5
+          ]
+        ]
+      },
+      "scale": {
+        "may1": [
+          [
+            0.0,
+            1.0,
+            1.1134747
+          ],
+          [
+            0.5,
+            1.0,
+            0.97872335
+          ],
+          [
+            1.0,
+            1.0,
+            1.113475
+          ],
+          [
+            1.5,
+            1.0,
+            1.113475
+          ]
+        ]
+      },
+      "visible": {}
+    }
+  }
+}

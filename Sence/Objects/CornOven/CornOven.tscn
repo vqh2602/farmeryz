@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/banghe.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/may.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/lap.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/may2.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/noi_hoatdong.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/noi_kohoatdong.png" id="8_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/phukien1.png" id="9_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Corn Oven/phukien2.png" id="10_tex"]
+
+[node name="CornOven" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "corn_oven"
+display_name = "Xe Bắp Rang"
+size_in_cells = Vector2i(3, 2)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.56, 0.56)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/CornOven/factory_anim.json"
+default_mode = "active"
+
+[node name="banghe" type="Sprite2D" parent="Visual"]
+position = Vector2(10, -77.5)
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-180, -102.5)
+
+[node name="may" type="Sprite2D" parent="Visual"]
+position = Vector2(12, -154)
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-94, -116)
+
+[node name="may2" type="Sprite2D" parent="Visual"]
+position = Vector2(101, -79)
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-56, -46)
+
+[node name="noi_hoatdong" type="Sprite2D" parent="Visual"]
+position = Vector2(-70, -96)
+texture = ExtResource("7_tex")
+centered = false
+offset = Vector2(-42, -36)
+
+[node name="noi_kohoatdong" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("8_tex")
+centered = false
+offset = Vector2(-42, -36)
+
+[node name="phukien1" type="Sprite2D" parent="Visual"]
+position = Vector2(134, -80)
+texture = ExtResource("9_tex")
+centered = false
+offset = Vector2(-24, -32)
+
+[node name="phukien2" type="Sprite2D" parent="Visual"]
+position = Vector2(156, -68)
+texture = ExtResource("10_tex")
+centered = false
+offset = Vector2(-22, -28)
+
+[node name="lap" type="Sprite2D" parent="Visual/may"]
+position = Vector2(-93, -6)
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-44, -30)

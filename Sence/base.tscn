@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cy0kejswrnn3r" path="res://Scripts/camera_world.gd" id="7_mlpvh"]
 [ext_resource type="Script" uid="uid://b8krhndoq81cf" path="res://Scripts/placeable_object.gd" id="8_o342e"]
 [ext_resource type="Script" uid="uid://b2mlocespvua4" path="res://Scripts/placement_manager.gd" id="9_rxqed"]
+[ext_resource type="Script" uid="uid://bghchihbor7pq" path="res://Scripts/main_ui.gd" id="10_main_ui"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iox36"]
 texture = ExtResource("1_suwon")
@@ -82,7 +83,7 @@ tile_set = SubResource("TileSet_n5nn2")
 position = Vector2(254, 665)
 script = ExtResource("8_o342e")
 size_in_cells = Vector2i(2, 2)
-draggable = true
+draggable = false
 blocks_cells = true
 use_area_footprint = true
 area_layer_name = &"Area"
@@ -101,6 +102,9 @@ script = ExtResource("7_mlpvh")
 [node name="CellDebugLabel" type="Label" parent="CanvasLayer" unique_id=2005004182]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="MainUI" type="CanvasLayer" parent="." unique_id=102880280]
+script = ExtResource("10_main_ui")
 
 [node name="PlacementManager" type="Node2D" parent="." unique_id=836199793]
 script = ExtResource("9_rxqed")

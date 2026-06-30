@@ -1,0 +1,205 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase3/blender",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase3/blender/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase3/blender/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 6,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 6
+    },
+    "active": {
+      "position": 0,
+      "scale": 2,
+      "visible": 6,
+      "position_keys": 0,
+      "scale_keys": 7,
+      "visible_keys": 18
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 7,
+  "texture_count": 6,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {
+        "blender_frame_1": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "blender_frame_2": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "blender_frame_3": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "blender_product_1": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "blender_product": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "blender_working_fruits": [
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "active": {
+      "length": 0.9166667,
+      "position": {},
+      "scale": {
+        "blender_product_1": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.33333334,
+            1.0,
+            1.0
+          ],
+          [
+            0.41666666,
+            1.0,
+            1.2
+          ],
+          [
+            0.5833333,
+            1.0,
+            1.0
+          ]
+        ],
+        "blender_product": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.16666667,
+            1.0,
+            1.2
+          ],
+          [
+            0.33333334,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {
+        "blender_working_fruits": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "blender_product_1": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "blender_frame_1": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.083333336,
+            0.0
+          ],
+          [
+            0.41666666,
+            1.0
+          ],
+          [
+            0.5833333,
+            0.0
+          ],
+          [
+            0.9166667,
+            1.0
+          ]
+        ],
+        "blender_frame_2": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.083333336,
+            1.0
+          ],
+          [
+            0.25,
+            0.0
+          ],
+          [
+            0.5833333,
+            1.0
+          ],
+          [
+            0.75,
+            0.0
+          ]
+        ],
+        "blender_frame_3": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.25,
+            1.0
+          ],
+          [
+            0.41666666,
+            0.0
+          ],
+          [
+            0.75,
+            1.0
+          ],
+          [
+            0.9166667,
+            0.0
+          ]
+        ],
+        "blender_product": [
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  }
+}

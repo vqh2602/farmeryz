@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Texture2D" path="res://Arts/UI/decor/decor/bicycle.png" id="2_texture"]
+
+[node name="Bicycle" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "bicycle"
+display_name = "Xe Đạp"
+size_in_cells = Vector2i(1, 1)
+use_area_footprint = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-42, -58)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_texture")
+centered = false

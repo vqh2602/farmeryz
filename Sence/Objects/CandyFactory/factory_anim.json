@@ -1,0 +1,143 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase3/candy_factory",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase3/candy_factory/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase3/candy_factory/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 4,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 4
+    },
+    "active": {
+      "position": 0,
+      "scale": 2,
+      "visible": 4,
+      "position_keys": 0,
+      "scale_keys": 9,
+      "visible_keys": 4
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 7,
+  "texture_count": 7,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {
+        "candy_factory_productred": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "candy_factory_productgreen": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "candy_factory_roof_working": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "candy_factory_bottle_working": [
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "active": {
+      "length": 1.0,
+      "position": {},
+      "scale": {
+        "candy_factory_productred": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.33333334,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.0
+          ],
+          [
+            0.6666667,
+            1.0,
+            1.2
+          ],
+          [
+            0.8333333,
+            1.0,
+            1.0
+          ]
+        ],
+        "candy_factory_productgreen": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.33333334,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.2
+          ],
+          [
+            0.6666667,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {
+        "candy_factory_productred": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "candy_factory_productgreen": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "candy_factory_roof_working": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "candy_factory_bottle_working": [
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  }
+}

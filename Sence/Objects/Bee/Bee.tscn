@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=4]
+
+[ext_resource type="Script" path="res://Scripts/animal_object.gd" id="1_animal"]
+[ext_resource type="Script" path="res://Scripts/animal_layer_anim.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/bee/images/canh1.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/bee/images/canh2.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/bee/images/than.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/bee/images/dau.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/bee/images/sp.png" id="7_tex"]
+
+[node name="Bee" type="Node2D"]
+script = ExtResource("1_animal")
+object_id = "bee"
+display_name = "Ong"
+size_in_cells = Vector2i(1, 1)
+draggable = false
+blocks_cells = false
+use_area_footprint = false
+animal_type = "bee"
+walk_speed = 44.0
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.085, 0.085)
+script = ExtResource("2_anim")
+
+[node name="WingLeftPivot" type="Node2D" parent="Visual"]
+position = Vector2(-70, -82)
+
+[node name="WingLeft" type="Sprite2D" parent="Visual/WingLeftPivot"]
+position = Vector2(0, 0)
+texture = ExtResource("3_tex")
+
+[node name="WingRightPivot" type="Node2D" parent="Visual"]
+position = Vector2(45, -90)
+
+[node name="WingRight" type="Sprite2D" parent="Visual/WingRightPivot"]
+position = Vector2(0, 0)
+texture = ExtResource("4_tex")
+
+[node name="BodyPivot" type="Node2D" parent="Visual"]
+position = Vector2(20, 0)
+z_index = 2
+
+[node name="Body" type="Sprite2D" parent="Visual/BodyPivot"]
+position = Vector2(0, 0)
+z_index = 2
+texture = ExtResource("5_tex")
+
+[node name="HeadPivot" type="Node2D" parent="Visual"]
+position = Vector2(-140, -15)
+z_index = 4
+
+[node name="Head" type="Sprite2D" parent="Visual/HeadPivot"]
+position = Vector2(0, 0)
+z_index = 4
+texture = ExtResource("6_tex")
+
+[node name="Product" type="Sprite2D" parent="Visual"]
+position = Vector2(165, 18)
+z_index = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_tex")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Texture2D" path="res://Arts/UI/decor/decor/lamp.png" id="2_texture"]
+
+[node name="Lamp" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "lamp"
+display_name = "Đèn"
+size_in_cells = Vector2i(1, 1)
+use_area_footprint = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-35, -78)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_texture")
+centered = false

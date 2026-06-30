@@ -1,0 +1,148 @@
+{
+  "source_folder": "res://Arts/factory/Bakery",
+  "source_files": {
+    "idle": "res://Arts/factory/Bakery/idle.anim",
+    "active": "res://Arts/factory/Bakery/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 0
+    },
+    "active": {
+      "position": 3,
+      "scale": 1,
+      "visible": 0,
+      "position_keys": 14,
+      "scale_keys": 5,
+      "visible_keys": 0
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 5,
+  "texture_count": 3,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {}
+    },
+    "active": {
+      "length": 2.0,
+      "position": {
+        "bao_nguyenlieu": [
+          [
+            0.0,
+            -96.0,
+            -85.0
+          ],
+          [
+            1.0,
+            -96.0,
+            -85.0
+          ],
+          [
+            1.3333334,
+            -96.0,
+            -105.5
+          ],
+          [
+            1.6666666,
+            -96.0,
+            -85.0
+          ],
+          [
+            2.0,
+            -96.0,
+            -85.0
+          ]
+        ],
+        "bao_nguyenlieu_1": [
+          [
+            0.0,
+            -138.79999999999998,
+            -65.3
+          ],
+          [
+            0.5,
+            -138.79999999999998,
+            -65.3
+          ],
+          [
+            0.8333333,
+            -138.79999999999998,
+            -85.80000000000001
+          ],
+          [
+            1.1666666,
+            -138.79999999999998,
+            -65.3
+          ],
+          [
+            2.0,
+            -138.79999999999998,
+            -65.3
+          ]
+        ],
+        "bao_nguyenlieu_2": [
+          [
+            0.0,
+            -94.3,
+            -57.8
+          ],
+          [
+            0.33333334,
+            -94.3,
+            -79.19999999999999
+          ],
+          [
+            0.6666667,
+            -94.3,
+            -57.8
+          ],
+          [
+            2.0,
+            -94.3,
+            -57.8
+          ]
+        ]
+      },
+      "scale": {
+        "nhamay": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.05
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.5,
+            1.0,
+            1.05
+          ],
+          [
+            2.0,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {}
+    }
+  }
+}

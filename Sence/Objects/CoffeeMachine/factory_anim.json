@@ -1,0 +1,71 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase 2/coffe_machine",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase 2/coffe_machine/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase 2/coffe_machine/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 0
+    },
+    "active": {
+      "position": 0,
+      "scale": 1,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 5,
+      "visible_keys": 0
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 2,
+  "texture_count": 2,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {}
+    },
+    "active": {
+      "length": 2.0,
+      "position": {},
+      "scale": {
+        "Coffe_machine": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.1
+          ],
+          [
+            1.0,
+            1.0,
+            0.9
+          ],
+          [
+            1.5,
+            1.0,
+            1.05
+          ],
+          [
+            2.0,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {}
+    }
+  }
+}

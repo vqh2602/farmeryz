@@ -1,0 +1,99 @@
+[gd_scene load_steps=15 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/Smelter_door_working.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/Smelter_main.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe1.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe2.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe3.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe4.png" id="8_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe5.png" id="9_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe6.png" id="10_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe7.png" id="11_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe8.png" id="12_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/metalframe9.png" id="13_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/smelter/smelter_funnel.png" id="14_tex"]
+
+[node name="Smelter" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "smelter"
+display_name = "Lò Luyện Kim"
+size_in_cells = Vector2i(3, 3)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.54, 0.54)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/Smelter/factory_anim.json"
+default_mode = "active"
+
+[node name="Smelter_door_working" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="Smelter_main" type="Sprite2D" parent="Visual"]
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe1" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe2" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe3" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("7_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe4" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("8_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe5" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("9_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe6" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("10_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe7" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("11_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe8" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("12_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="metalframe9" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("13_tex")
+centered = false
+offset = Vector2(-210, -188)
+
+[node name="smelter_funnel" type="Sprite2D" parent="Visual"]
+texture = ExtResource("14_tex")
+centered = false
+offset = Vector2(-72, -84.199407)

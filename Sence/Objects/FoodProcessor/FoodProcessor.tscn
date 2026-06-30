@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Food _Processor/bao.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Food _Processor/may.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Food _Processor/nguyenlieu2.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Food _Processor/thung.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Food _Processor/nguyenlieu.png" id="7_tex"]
+
+[node name="FoodProcessor" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "food_processor"
+display_name = "Máy Xay Thức Ăn"
+size_in_cells = Vector2i(3, 2)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.58, 0.58)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/FoodProcessor/factory_anim.json"
+default_mode = "active"
+
+[node name="may" type="Sprite2D" parent="Visual"]
+position = Vector2(14, -122)
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-146, -96)
+
+[node name="thung" type="Sprite2D" parent="Visual"]
+position = Vector2(-98, -36)
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-62, -64)
+
+[node name="nguyenlieu2" type="Sprite2D" parent="Visual"]
+position = Vector2(90, -93)
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-30, -22)
+
+[node name="bao" type="Sprite2D" parent="Visual"]
+position = Vector2(36, -56)
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-26, -22)
+
+[node name="bao_1" type="Sprite2D" parent="Visual"]
+position = Vector2(62.700000, -32.600000)
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-26, -22)
+
+[node name="bao_2" type="Sprite2D" parent="Visual"]
+position = Vector2(81.300000, -5.200000)
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-26, -22)
+
+[node name="nguyenlieu" type="Sprite2D" parent="Visual/thung"]
+position = Vector2(-6, -48)
+texture = ExtResource("7_tex")
+centered = false
+offset = Vector2(-46, -24)

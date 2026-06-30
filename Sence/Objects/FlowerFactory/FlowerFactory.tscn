@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/flower_factory/flower_factory_flowertree.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/flower_factory/flower_factory_item_above.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/flower_factory/flower_factory_item_bellow.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/flower_factory/flower_factory_leaf.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/flower_factory/flower_factory_table.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/flower_factory/flower_factory_warehouse.png" id="8_tex"]
+
+[node name="FlowerFactory" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "flower_factory"
+display_name = "Xưởng Hoa"
+size_in_cells = Vector2i(3, 3)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.54, 0.54)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/FlowerFactory/factory_anim.json"
+default_mode = "active"
+
+[node name="flower_factory_flowertree" type="Sprite2D" parent="Visual"]
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-232, -332.722685)
+
+[node name="flower_factory_item_above" type="Sprite2D" parent="Visual"]
+position = Vector2(69, 41.8)
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-44, -32)
+
+[node name="flower_factory_item_bellow" type="Sprite2D" parent="Visual"]
+position = Vector2(71, 55.7)
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-42, -32)
+
+[node name="flower_factory_leaf" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-34, -22)
+
+[node name="flower_factory_leaf_1" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-34, -22)
+
+[node name="flower_factory_leaf_2" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-34, -22)
+
+[node name="flower_factory_leaf_3" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-34, -22)
+
+[node name="flower_factory_table" type="Sprite2D" parent="Visual"]
+texture = ExtResource("7_tex")
+centered = false
+offset = Vector2(-232, -168)
+
+[node name="flower_factory_warehouse" type="Sprite2D" parent="Visual"]
+texture = ExtResource("8_tex")
+centered = false
+offset = Vector2(-115.698695, -172.067794)

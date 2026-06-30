@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Dairy/may1.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Dairy/may2.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/factory/Dairy/thungsua.png" id="5_tex"]
+
+[node name="Dairy" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "dairy"
+display_name = "Xưởng Làm Bơ"
+size_in_cells = Vector2i(3, 2)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.58, 0.58)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/Dairy/factory_anim.json"
+default_mode = "active"
+
+[node name="may2" type="Sprite2D" parent="Visual"]
+position = Vector2(-2, -68)
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-156, -92)
+
+[node name="may1" type="Sprite2D" parent="Visual"]
+position = Vector2(-6, -138)
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-64, -90)
+
+[node name="thungsua" type="Sprite2D" parent="Visual"]
+position = Vector2(88, -86.5)
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-18, -25.5)

@@ -14,11 +14,11 @@ extends Node2D
 
 @onready var chicken_root: Node2D = get_parent()
 
-@onready var leg_back_pivot: Node2D = $LegBackPivot
-@onready var leg_front_pivot: Node2D = $LegFrontPivot
-@onready var body_pivot: Node2D = $BodyPivot
-@onready var wing_pivot: Node2D = $WingPivot
-@onready var head_pivot: Node2D = $HeadPivot
+@onready var leg_back_pivot: Node2D = get_node_or_null("LegBackPivot")
+@onready var leg_front_pivot: Node2D = get_node_or_null("LegFrontPivot")
+@onready var body_pivot: Node2D = get_node_or_null("BodyPivot")
+@onready var wing_pivot: Node2D = get_node_or_null("WingPivot")
+@onready var head_pivot: Node2D = get_node_or_null("HeadPivot")
 
 var time: float = 0.0
 
@@ -37,10 +37,21 @@ var is_pecking: bool = false
 var idle_timer: float = 0.0
 
 var facing_dir: int = 1
+var has_animation_rig := false
 
 
 func _ready():
 	randomize()
+	has_animation_rig = (
+		leg_back_pivot != null
+		and leg_front_pivot != null
+		and body_pivot != null
+		and wing_pivot != null
+		and head_pivot != null
+	)
+	if not has_animation_rig:
+		set_process(false)
+		return
 
 	base_scale = scale
 	base_position = chicken_root.position
@@ -57,6 +68,9 @@ func _ready():
 
 
 func _process(delta):
+	if not has_animation_rig:
+		return
+
 	time += delta
 
 	if can_wander:

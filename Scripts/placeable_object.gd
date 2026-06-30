@@ -46,6 +46,31 @@ func can_drag() -> bool:
 	return draggable
 
 
+func has_factory_animation() -> bool:
+	return get_factory_animation_player() != null
+
+
+func play_factory_animation(mode_name: String) -> void:
+	var player := get_factory_animation_player()
+	if player != null and player.has_method("play"):
+		player.call("play", mode_name)
+
+
+func get_factory_animation_mode() -> String:
+	var player := get_factory_animation_player()
+	if player != null and player.has_method("get_current_mode"):
+		return str(player.call("get_current_mode"))
+	return ""
+
+
+func get_factory_animation_player() -> Node:
+	var visual := get_node_or_null("Visual")
+	if visual != null and visual.has_method("play") and visual.has_method("has_animation_mode"):
+		return visual
+
+	return null
+
+
 func get_footprint_offsets() -> Array[Vector2i]:
 	if use_custom_footprint and custom_footprint.size() > 0:
 		return custom_footprint

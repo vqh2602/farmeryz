@@ -1,0 +1,126 @@
+{
+  "source_folder": "res://Arts/factory/Roaster",
+  "source_files": {
+    "idle": "res://Arts/factory/Roaster/idle.anim",
+    "active": "res://Arts/factory/Roaster/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 0
+    },
+    "active": {
+      "position": 1,
+      "scale": 2,
+      "visible": 0,
+      "position_keys": 6,
+      "scale_keys": 9,
+      "visible_keys": 0
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 5,
+  "texture_count": 5,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {}
+    },
+    "active": {
+      "length": 1.5,
+      "position": {
+        "may": [
+          [
+            0.0,
+            2.0,
+            -121.99999999999999
+          ],
+          [
+            0.5,
+            2.0,
+            -133.46000000000004
+          ],
+          [
+            1.0,
+            2.0,
+            -121.99999999999999
+          ],
+          [
+            1.3333334,
+            2.0,
+            -121.99999999999999
+          ],
+          [
+            1.4166666,
+            2.0,
+            -121.99999999999999
+          ],
+          [
+            1.5,
+            2.0,
+            -121.99999999999999
+          ]
+        ]
+      },
+      "scale": {
+        "may": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.1301773
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.3333334,
+            1.0,
+            1.0
+          ],
+          [
+            1.5,
+            1.0,
+            1.0
+          ]
+        ],
+        "may/may3": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.3333334,
+            1.0,
+            1.0
+          ],
+          [
+            1.4166666,
+            0.9,
+            1.1
+          ],
+          [
+            1.5,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {}
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "source_folder": "res://Arts/factory/Sushi _shop",
+  "source_files": {
+    "idle": "res://Arts/factory/Sushi _shop/idle.anim",
+    "active": "res://Arts/factory/Sushi _shop/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 0
+    },
+    "active": {
+      "position": 0,
+      "scale": 6,
+      "visible": 0,
+      "position_keys": 0,
+      "scale_keys": 23,
+      "visible_keys": 0
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 6,
+  "texture_count": 6,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {}
+    },
+    "active": {
+      "length": 1.0,
+      "position": {},
+      "scale": {
+        "may": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5833333,
+            1.0,
+            1.05
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "may/mon2": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.33333334,
+            1.0,
+            1.0
+          ],
+          [
+            0.41666666,
+            1.0,
+            0.8
+          ],
+          [
+            0.5,
+            1.0,
+            1.0
+          ]
+        ],
+        "may/mon1": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.25,
+            1.0,
+            1.0
+          ],
+          [
+            0.33333334,
+            1.0,
+            0.8
+          ],
+          [
+            0.41666666,
+            1.0,
+            1.0
+          ]
+        ],
+        "may/mon3": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.41666666,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            0.8
+          ],
+          [
+            0.5833333,
+            1.0,
+            1.0
+          ]
+        ],
+        "may/mon5": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5833333,
+            1.0,
+            1.0
+          ],
+          [
+            0.6666667,
+            1.0,
+            0.8
+          ],
+          [
+            0.75,
+            1.0,
+            1.0
+          ]
+        ],
+        "may/mon4": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.0
+          ],
+          [
+            0.5833333,
+            1.0,
+            0.8
+          ],
+          [
+            0.6666667,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {}
+    }
+  }
+}

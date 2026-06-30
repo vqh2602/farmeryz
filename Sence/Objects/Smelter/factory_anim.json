@@ -1,0 +1,301 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase 2/smelter",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase 2/smelter/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase 2/smelter/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 10,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 10
+    },
+    "active": {
+      "position": 0,
+      "scale": 1,
+      "visible": 10,
+      "position_keys": 0,
+      "scale_keys": 5,
+      "visible_keys": 37
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 12,
+  "texture_count": 12,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {
+        "Smelter_door_working": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe9": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe8": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe7": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe6": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe5": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe4": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe3": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe2": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "metalframe1": [
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "active": {
+      "length": 0.8333333,
+      "position": {},
+      "scale": {
+        "smelter_funnel": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.25,
+            1.0,
+            1.1
+          ],
+          [
+            0.5,
+            1.0,
+            1.0
+          ],
+          [
+            0.75,
+            1.0,
+            1.1
+          ],
+          [
+            0.8333333,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {
+        "metalframe9": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.6666667,
+            1.0
+          ],
+          [
+            0.75,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe8": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.5833333,
+            1.0
+          ],
+          [
+            0.6666667,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe7": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.5,
+            1.0
+          ],
+          [
+            0.5833333,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe6": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.41666666,
+            1.0
+          ],
+          [
+            0.5,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe5": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.33333334,
+            1.0
+          ],
+          [
+            0.41666666,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe4": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.25,
+            1.0
+          ],
+          [
+            0.33333334,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe3": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.16666667,
+            1.0
+          ],
+          [
+            0.25,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe2": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.083333336,
+            1.0
+          ],
+          [
+            0.16666667,
+            0.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "metalframe1": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.083333336,
+            0.0
+          ],
+          [
+            0.75,
+            1.0
+          ],
+          [
+            0.8333333,
+            0.0
+          ]
+        ],
+        "Smelter_door_working": [
+          [
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    }
+  }
+}

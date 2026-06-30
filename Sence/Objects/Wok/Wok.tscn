@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase3/wok/wok_fire.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase3/wok/wok_lidwok.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase3/wok/wok_product.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase3/wok/wok_stove.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase3/wok/wok_wok.png" id="7_tex"]
+
+[node name="Wok" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "wok"
+display_name = "Chảo Wok"
+size_in_cells = Vector2i(3, 3)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.54, 0.54)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/Wok/factory_anim.json"
+default_mode = "active"
+
+[node name="wok_fire" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-186, -204)
+
+[node name="wok_lidwok" type="Sprite2D" parent="Visual"]
+position = Vector2(-102, 7)
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-64, -38)
+
+[node name="wok_product" type="Sprite2D" parent="Visual"]
+position = Vector2(50, 99.99994)
+visible = false
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-39.742158, -69.715017)
+
+[node name="wok_product_1" type="Sprite2D" parent="Visual"]
+position = Vector2(111, 65)
+visible = false
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-39.742158, -69.715017)
+
+[node name="wok_stove" type="Sprite2D" parent="Visual"]
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-186, -204)
+
+[node name="wok_wok" type="Sprite2D" parent="Visual"]
+position = Vector2(-100, 12)
+texture = ExtResource("7_tex")
+centered = false
+offset = Vector2(-78, -40)

@@ -1,0 +1,107 @@
+[gd_scene load_steps=13 format=4]
+
+[ext_resource type="Script" path="res://Scripts/animal_object.gd" id="1_animal"]
+[ext_resource type="Script" path="res://Scripts/animal_layer_anim.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/shadow.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/duoi.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/chansau.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/chansau2.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/chantrc1.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/chantrc2.png" id="8_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/body.png" id="9_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/bung.png" id="10_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/dau.png" id="11_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Animals/Cow/images/mom.png" id="12_tex"]
+
+[node name="Cow" type="Node2D"]
+script = ExtResource("1_animal")
+object_id = "cow"
+display_name = "Bò"
+size_in_cells = Vector2i(1, 1)
+draggable = false
+blocks_cells = false
+use_area_footprint = false
+animal_type = "cow"
+walk_speed = 28.0
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.08, 0.08)
+script = ExtResource("2_anim")
+
+[node name="Shadow" type="Sprite2D" parent="Visual"]
+position = Vector2(0, 180)
+z_index = -10
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("3_tex")
+
+[node name="TailPivot" type="Node2D" parent="Visual"]
+position = Vector2(-250, -55)
+
+[node name="Tail" type="Sprite2D" parent="Visual/TailPivot"]
+position = Vector2(0, 0)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("4_tex")
+
+[node name="LegBackPivot" type="Node2D" parent="Visual"]
+position = Vector2(-120, 140)
+z_index = 1
+
+[node name="LegBack" type="Sprite2D" parent="Visual/LegBackPivot"]
+position = Vector2(0, 70)
+z_index = 1
+texture = ExtResource("5_tex")
+
+[node name="LegBack2Pivot" type="Node2D" parent="Visual"]
+position = Vector2(-35, 145)
+z_index = 1
+
+[node name="LegBack2" type="Sprite2D" parent="Visual/LegBack2Pivot"]
+position = Vector2(0, 70)
+z_index = 1
+texture = ExtResource("6_tex")
+
+[node name="LegFrontPivot" type="Node2D" parent="Visual"]
+position = Vector2(75, 145)
+z_index = 3
+
+[node name="LegFront" type="Sprite2D" parent="Visual/LegFrontPivot"]
+position = Vector2(0, 70)
+z_index = 3
+texture = ExtResource("7_tex")
+
+[node name="LegFront2Pivot" type="Node2D" parent="Visual"]
+position = Vector2(150, 148)
+z_index = 3
+
+[node name="LegFront2" type="Sprite2D" parent="Visual/LegFront2Pivot"]
+position = Vector2(0, 70)
+z_index = 3
+texture = ExtResource("8_tex")
+
+[node name="BodyPivot" type="Node2D" parent="Visual"]
+position = Vector2(-30, 0)
+z_index = 2
+
+[node name="Body" type="Sprite2D" parent="Visual/BodyPivot"]
+position = Vector2(0, 0)
+z_index = 2
+texture = ExtResource("9_tex")
+
+[node name="Belly" type="Sprite2D" parent="Visual"]
+position = Vector2(75, 110)
+z_index = 2
+texture = ExtResource("10_tex")
+
+[node name="HeadPivot" type="Node2D" parent="Visual"]
+position = Vector2(230, -65)
+z_index = 5
+
+[node name="Head" type="Sprite2D" parent="Visual/HeadPivot"]
+position = Vector2(0, 0)
+z_index = 5
+texture = ExtResource("11_tex")
+
+[node name="Mouth" type="Sprite2D" parent="Visual"]
+position = Vector2(90, 80)
+z_index = 6
+texture = ExtResource("12_tex")

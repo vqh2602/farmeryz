@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=4]
+
+[ext_resource type="Script" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/unity_factory_anim_player.gd" id="2_anim"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_chimney.png" id="3_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_frame1.png" id="4_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_frame2.png" id="5_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_frame3.png" id="6_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_glasstube.png" id="7_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_main.png" id="8_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_productblue.png" id="9_tex"]
+[ext_resource type="Texture2D" path="res://Arts/Sprint2/Factory/phase 2/paint_factory/Paint_Factory_productpink.png" id="10_tex"]
+
+[node name="PaintFactory" type="Node2D"]
+script = ExtResource("1_placeable")
+object_id = "paint_factory"
+display_name = "Xưởng Sơn"
+size_in_cells = Vector2i(3, 3)
+use_area_footprint = false
+
+[node name="Visual" type="Node2D" parent="."]
+scale = Vector2(0.54, 0.54)
+script = ExtResource("2_anim")
+animation_data_path = "res://Sence/Objects/PaintFactory/factory_anim.json"
+default_mode = "active"
+
+[node name="Paint_Factory_chimney" type="Sprite2D" parent="Visual"]
+texture = ExtResource("3_tex")
+centered = false
+offset = Vector2(-28.941474, -46.147589)
+
+[node name="Paint_Factory_frame1" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("4_tex")
+centered = false
+offset = Vector2(-128, -200)
+
+[node name="Paint_Factory_frame2" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("5_tex")
+centered = false
+offset = Vector2(-128, -200)
+
+[node name="Paint_Factory_frame3" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("6_tex")
+centered = false
+offset = Vector2(-128, -200)
+
+[node name="Paint_Factory_glasstube" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("7_tex")
+centered = false
+offset = Vector2(-128, -200)
+
+[node name="Paint_Factory_main" type="Sprite2D" parent="Visual"]
+texture = ExtResource("8_tex")
+centered = false
+offset = Vector2(-120.536056, -359.457156)
+
+[node name="Paint_Factory_productblue" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("9_tex")
+centered = false
+offset = Vector2(-22, -49.37574)
+
+[node name="Paint_Factory_productpink" type="Sprite2D" parent="Visual"]
+visible = false
+texture = ExtResource("10_tex")
+centered = false
+offset = Vector2(-22.088211, -49.993213)

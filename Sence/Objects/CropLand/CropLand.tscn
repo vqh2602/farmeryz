@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://cqur6goqggcdl"]
+
+[ext_resource type="Script" uid="uid://b8krhndoq81cf" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Texture2D" uid="uid://bj8pvpv17nvsv" path="res://Arts/Map/tile_green.png" id="2_mqh3w"]
+[ext_resource type="Texture2D" uid="uid://c6rmcwi6s8ium" path="res://Arts/caytrong-v2/odat.png" id="2_texture"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aq8yq"]
+texture = ExtResource("2_mqh3w")
+texture_region_size = Vector2i(127, 74)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_syybp"]
+tile_shape = 1
+tile_size = Vector2i(127, 74)
+sources/1 = SubResource("TileSetAtlasSource_aq8yq")
+
+[node name="CropLand" type="Node2D" unique_id=1065888537]
+script = ExtResource("1_placeable")
+object_id = "crop_land"
+display_name = "Ô Đất Trồng"
+use_area_footprint = false
+
+[node name="Area" type="TileMapLayer" parent="." unique_id=51066010]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, -3.8146973e-06)
+scale = Vector2(0.99999994, 0.99999994)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 1, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_syybp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1429273048]
+position = Vector2(-63.000008, -38)
+scale = Vector2(0.51229507, 0.5277778)
+texture = ExtResource("2_texture")
+centered = false

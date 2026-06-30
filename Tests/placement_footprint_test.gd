@@ -8,6 +8,8 @@ func _initialize():
 	test_custom_footprint_is_preserved()
 	test_base_scene_main_house_preview()
 	test_drag_requires_hold_and_motion()
+	test_shop_spawn_placeable_object()
+	test_shop_spawn_invalid_cell_removes_new_object()
 
 	if failures.is_empty():
 		print("placement_footprint_test: PASS")
@@ -129,6 +131,74 @@ func test_drag_requires_hold_and_motion():
 	manager.dragging_object = null
 	manager.cancel_pending_drag()
 	manager.clear_preview()
+	scene.queue_free()
+
+
+func test_shop_spawn_placeable_object():
+	var scene: Node = load("res://Sence/base.tscn").instantiate()
+	root.add_child(scene)
+	await process_frame
+
+	var manager: PlacementManager = scene.get_node("PlacementManager")
+	var objects: Node2D = scene.get_node("Objects")
+	var item := {
+		"id": "test_bakery",
+		"name": "Test Bakery",
+		"icon": "res://Arts/UI/shop/icon_nhamay-assets/Bakery.png",
+		"scene": "res://Sence/Objects/Bakery/Bakery.tscn",
+	}
+
+	var before_count := objects.get_child_count()
+	var obj := manager.start_build_from_shop_item(item)
+	assert_bool(obj != null, "shop item creates a PlaceableObject")
+	assert_equal(objects.get_child_count(), before_count + 1, "spawned shop object is added to Objects")
+	assert_equal(manager.dragging_object, obj, "spawned shop object starts in drag mode")
+	assert_equal(obj.size_in_cells, Vector2i(3, 2), "spawned shop object keeps configured footprint size")
+	assert_bool(obj.get_node_or_null("Sprite2D") != null, "spawned shop object has a Sprite2D")
+	assert_equal(obj.display_name, "Test Bakery", "spawned shop object can override display name from shop")
+
+	var target_cell := Vector2i(12, 12)
+	manager.current_cell = target_cell
+	manager.move_object_to_cell(obj, target_cell)
+	manager.stop_drag()
+	await process_frame
+
+	assert_equal(manager.dragging_object, null, "valid shop placement exits drag mode")
+	assert_bool(objects.get_children().has(obj), "valid shop placement keeps the new object")
+	assert_equal(obj.current_cell, target_cell, "valid shop placement stores the final cell")
+	for cell in manager.get_object_footprint_cells(obj, target_cell):
+		assert_equal(manager.obj_layer_block.get_cell_source_id(cell), manager.occupied_source_id, "valid shop placement marks occupied cells")
+
+	scene.queue_free()
+
+
+func test_shop_spawn_invalid_cell_removes_new_object():
+	var scene: Node = load("res://Sence/base.tscn").instantiate()
+	root.add_child(scene)
+	await process_frame
+
+	var manager: PlacementManager = scene.get_node("PlacementManager")
+	var objects: Node2D = scene.get_node("Objects")
+	var main_house: PlaceableObject = scene.get_node("Objects/MainHouse")
+	var item := {
+		"id": "test_land",
+		"name": "Test Land",
+		"icon": "res://Arts/UI/shop/icon_chuong-assets/land.png",
+		"scene": "res://Sence/Objects/CropLand/CropLand.tscn",
+	}
+
+	var before_count := objects.get_child_count()
+	var obj := manager.start_build_from_shop_item(item)
+	assert_bool(obj != null, "invalid placement test creates a shop object")
+	manager.current_cell = main_house.current_cell
+	manager.move_object_to_cell(obj, main_house.current_cell)
+	manager.stop_drag()
+	await process_frame
+
+	assert_equal(manager.dragging_object, null, "invalid shop placement exits drag mode")
+	assert_equal(manager.shop_spawn_object, null, "invalid shop placement clears spawn state")
+	assert_equal(objects.get_child_count(), before_count, "invalid shop placement removes the new object")
+
 	scene.queue_free()
 
 

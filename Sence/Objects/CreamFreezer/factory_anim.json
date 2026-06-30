@@ -1,0 +1,183 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase3/Cream_freezer",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase3/Cream_freezer/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase3/Cream_freezer/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 4,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 4
+    },
+    "active": {
+      "position": 1,
+      "scale": 2,
+      "visible": 4,
+      "position_keys": 6,
+      "scale_keys": 8,
+      "visible_keys": 7
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 7,
+  "texture_count": 6,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {
+        "Cream_Freezer_product_orange": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Cream_Freezer_product_1": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Cream_Freezer_product": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "Cream_Freezer_sign_working": [
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "active": {
+      "length": 1.3333334,
+      "position": {
+        "Cream_Freezer_product_orange": [
+          [
+            0.0,
+            -7.000000000000001,
+            18.0
+          ],
+          [
+            0.25,
+            -38.0,
+            40.0
+          ],
+          [
+            0.5,
+            -60.0,
+            89.0
+          ],
+          [
+            0.5833333,
+            -7.000000000000001,
+            18.0
+          ],
+          [
+            0.9166667,
+            -38.0,
+            40.0
+          ],
+          [
+            1.3333334,
+            -60.0,
+            89.0
+          ]
+        ]
+      },
+      "scale": {
+        "Cream_Freezer_product_1": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.0
+          ],
+          [
+            0.6666667,
+            1.0,
+            1.2
+          ],
+          [
+            0.8333333,
+            1.0,
+            1.0
+          ]
+        ],
+        "Cream_Freezer_product": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.33333334,
+            1.0,
+            1.0
+          ],
+          [
+            0.5,
+            1.0,
+            1.2
+          ],
+          [
+            0.6666667,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {
+        "Cream_Freezer_sign_working": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "Cream_Freezer_product_1": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "Cream_Freezer_product": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "Cream_Freezer_product_orange": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.5,
+            0.0
+          ],
+          [
+            0.5833333,
+            0.0
+          ],
+          [
+            0.6666667,
+            1.0
+          ]
+        ]
+      }
+    }
+  }
+}

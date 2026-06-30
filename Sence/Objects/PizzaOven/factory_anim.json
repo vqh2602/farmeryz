@@ -1,0 +1,204 @@
+{
+  "source_folder": "res://Arts/Sprint2/Factory/phase3/Pizza_Oven",
+  "source_files": {
+    "idle": "res://Arts/Sprint2/Factory/phase3/Pizza_Oven/idle.anim",
+    "active": "res://Arts/Sprint2/Factory/phase3/Pizza_Oven/active.anim"
+  },
+  "missing_anim_files": [],
+  "source_counts": {
+    "idle": {
+      "position": 0,
+      "scale": 0,
+      "visible": 6,
+      "position_keys": 0,
+      "scale_keys": 0,
+      "visible_keys": 6
+    },
+    "active": {
+      "position": 2,
+      "scale": 1,
+      "visible": 6,
+      "position_keys": 7,
+      "scale_keys": 4,
+      "visible_keys": 12
+    }
+  },
+  "missing_source_paths": [],
+  "node_count": 9,
+  "texture_count": 9,
+  "animations": {
+    "idle": {
+      "length": 1.0,
+      "position": {},
+      "scale": {},
+      "visible": {
+        "pizza_oven_salad": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "pizza_oven_ovendoor_working": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "pizza_oven_Product_rolling": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "pizza_oven_Product_pizza": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "pizza_oven_Product_flour_frame3": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "pizza_oven_Product_flour_frame2": [
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "active": {
+      "length": 1.0,
+      "position": {
+        "pizza_oven_salad": [
+          [
+            0.0,
+            -75.7,
+            -10.7
+          ],
+          [
+            0.25,
+            -73.90000000000002,
+            -21.0
+          ],
+          [
+            0.41666666,
+            -72.3,
+            -12.0
+          ],
+          [
+            0.75,
+            -74.8,
+            -26.3
+          ],
+          [
+            1.0,
+            -74.8,
+            -11.8
+          ]
+        ],
+        "pizza_oven_Product_rolling": [
+          [
+            0.0,
+            140.6,
+            71.7
+          ],
+          [
+            0.5,
+            164.9,
+            88.2
+          ]
+        ]
+      },
+      "scale": {
+        "pizza_oven_Product_pizza": [
+          [
+            0.0,
+            1.0,
+            1.0
+          ],
+          [
+            0.25,
+            1.0,
+            1.0
+          ],
+          [
+            0.41666666,
+            1.0,
+            0.8
+          ],
+          [
+            0.5833333,
+            1.0,
+            1.0
+          ]
+        ]
+      },
+      "visible": {
+        "pizza_oven_salad": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "pizza_oven_ovendoor_working": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "pizza_oven_Product_rolling": [
+          [
+            0.0,
+            1.0
+          ]
+        ],
+        "pizza_oven_Product_flour_frame1": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.16666667,
+            0.0
+          ],
+          [
+            0.5,
+            1.0
+          ]
+        ],
+        "pizza_oven_Product_flour_frame3": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.33333334,
+            1.0
+          ],
+          [
+            0.5,
+            0.0
+          ]
+        ],
+        "pizza_oven_Product_flour_frame2": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.16666667,
+            1.0
+          ],
+          [
+            0.33333334,
+            0.0
+          ]
+        ]
+      }
+    }
+  }
+}
