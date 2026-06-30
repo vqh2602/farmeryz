@@ -1,3 +1,4 @@
+@tool
 extends PlaceableObject
 class_name CropLand
 
@@ -6,10 +7,19 @@ var growth_time_total: float = 60.0 # Loaded dynamically from CropData
 var current_growth_time: float = 0.0
 var crop_data: CropData = null
 
+@export var debug_crop_data: CropData = null:
+	set(val):
+		debug_crop_data = val
+		_update_debug_visual()
+
 @onready var crop_sprite: Sprite2D = $CropSprite
 
 func _ready():
 	super._ready()
+	if Engine.is_editor_hint():
+		_update_debug_visual()
+		return
+
 	if crop_sprite:
 		crop_sprite.visible = false
 		
@@ -37,10 +47,30 @@ void vertex() {
 			update_crop_visual()
 
 func _process(delta):
+	if Engine.is_editor_hint():
+		return
 	if current_crop_id != "":
 		if current_growth_time < growth_time_total:
 			current_growth_time += delta
 			update_crop_visual()
+
+func _update_debug_visual():
+	if crop_sprite == null:
+		crop_sprite = get_node_or_null("CropSprite")
+	if crop_sprite == null:
+		return
+		
+	if debug_crop_data == null:
+		crop_sprite.texture = null
+		if not Engine.is_editor_hint():
+			crop_sprite.visible = false
+		return
+		
+	crop_sprite.visible = true
+	if debug_crop_data.stage_textures.size() > 0:
+		# Show the fully grown stage (stage 3) in editor for visual scaling
+		crop_sprite.texture = debug_crop_data.stage_textures[-1]
+	crop_sprite.scale = debug_crop_data.visual_scale
 
 func plant_seed(crop_id: String):
 	current_crop_id = crop_id
@@ -89,6 +119,7 @@ func update_crop_visual():
 	var tex = crop_data.stage_textures[stage_index]
 	if tex and crop_sprite:
 		crop_sprite.texture = tex
+		crop_sprite.scale = crop_data.visual_scale
 
 func _load_crop_data(crop_id: String):
 	var path = "res://Sence/Farm/Crops/%s.tres" % crop_id

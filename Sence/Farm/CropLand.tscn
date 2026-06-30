@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqur6goqggcdl"]
+[gd_scene format=3 uid="uid://cqur6goqggcdl"]
 
-[ext_resource type="Script" path="res://Scripts/crop_land.gd" id="1_placeable"]
+[ext_resource type="Script" uid="uid://dreqp33245vi0" path="res://Scripts/crop_land.gd" id="1_placeable"]
 [ext_resource type="Texture2D" uid="uid://bj8pvpv17nvsv" path="res://Arts/Map/tile_green.png" id="2_mqh3w"]
 [ext_resource type="Texture2D" uid="uid://c6rmcwi6s8ium" path="res://Arts/caytrong-v2/odat.png" id="2_texture"]
+[ext_resource type="Resource" path="res://Sence/Farm/Crops/carrot.tres" id="2_y5xke"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aq8yq"]
 texture = ExtResource("2_mqh3w")
@@ -16,10 +17,11 @@ sources/1 = SubResource("TileSetAtlasSource_aq8yq")
 
 [node name="CropLand" type="Node2D" unique_id=1065888537]
 script = ExtResource("1_placeable")
+debug_crop_data = ExtResource("2_y5xke")
 object_id = "crop_land"
 display_name = "Ô Đất Trồng"
-use_area_footprint = false
 draggable = false
+use_area_footprint = false
 
 [node name="Area" type="TileMapLayer" parent="." unique_id=51066010]
 modulate = Color(1, 1, 1, 0)
