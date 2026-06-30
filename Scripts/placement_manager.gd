@@ -36,6 +36,7 @@ var shop_spawn_counter: int = 0
 var drag_original_z_indexes: Dictionary = {}
 var current_cell: Vector2i = Vector2i.ZERO
 var is_current_cell_valid: bool = false
+var current_shop_item: Dictionary = {}
 
 func _ready():
 	print("=== PlacementManager ready ===")
@@ -253,8 +254,17 @@ func stop_drag():
 			clear_preview()
 			rebuild_occupied_cells()
 			show_animation_controls_for(obj)
-
 			print("Đặt object thành công: ", obj.object_id, " tại ô: ", current_cell)
+
+			# Hỗ trợ đặt liên tục ô đất (CropLand) lên đến tối đa 16 ô
+			if is_shop_spawn and current_shop_item.get("id") == "crop_land":
+				if get_crop_land_count() < 16:
+					print("[PM] Đặt thành công CropLand, tự động đặt ô tiếp theo. Số lượng: ", get_crop_land_count())
+					call_deferred("start_build_from_shop_item", current_shop_item)
+				else:
+					print("[PM] Đạt giới hạn tối đa 16 ô đất trồng.")
+					if main_ui and main_ui.has_method("show_toast"):
+						main_ui.call("show_toast", "Đã đặt hết số lượng ô đất tối đa (16/16)!")
 	else:
 		if is_shop_spawn:
 			remove_shop_spawn_object()
@@ -311,6 +321,7 @@ func start_build_from_shop_item(item: Dictionary) -> PlaceableObject:
 		return null
 
 	cancel_pending_drag()
+	current_shop_item = item
 
 	var scene_path: String = item.get("scene", "")
 	if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
@@ -687,4 +698,10 @@ func update_edge_scroll(delta: float):
 
 		if dragging_object != null:
 			update_drag()
-			
+
+func get_crop_land_count() -> int:
+	var count = 0
+	for child in objects.get_children():
+		if child is PlaceableObject and child.has_method("plant_seed"):
+			count += 1
+	return count

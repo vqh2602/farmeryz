@@ -681,3 +681,48 @@ func _load_texture(path: String) -> Texture2D:
 		push_warning("Không tìm thấy texture UI: %s" % path)
 		return null
 	return load(path) as Texture2D
+
+func show_toast(message: String) -> void:
+	var toast = PanelContainer.new()
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0, 0, 0, 0.75)
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_left = 10
+	style.corner_radius_bottom_right = 10
+	style.content_margin_left = 20
+	style.content_margin_top = 10
+	style.content_margin_right = 20
+	style.content_margin_bottom = 10
+	toast.add_theme_stylebox_override("panel", style)
+	
+	var label = Label.new()
+	label.text = message
+	label.add_theme_font_size_override("font_size", 18)
+	label.add_theme_color_override("font_color", Color.WHITE)
+	toast.add_child(label)
+	
+	add_child(toast)
+	
+	# Center horizontally at the top part of the screen
+	toast.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	# Wait for size calculation
+	await get_tree().process_frame
+	toast.position = Vector2((get_viewport().get_visible_rect().size.x - toast.size.x) / 2, 80)
+	
+	# Animate using Tween
+	toast.modulate.a = 0
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(toast, "modulate:a", 1.0, 0.25)
+	var start_y = 50.0
+	var target_y = 80.0
+	toast.position.y = start_y
+	tween.tween_property(toast, "position:y", target_y, 0.25).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	# Wait 2.0 seconds, then fade out and free
+	await get_tree().create_timer(2.0).timeout
+	if is_instance_valid(toast):
+		var fade_tween = create_tween().set_parallel(true)
+		fade_tween.tween_property(toast, "modulate:a", 0.0, 0.3)
+		fade_tween.tween_property(toast, "position:y", 50.0, 0.3)
+		fade_tween.finished.connect(toast.queue_free)
