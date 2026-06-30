@@ -2,29 +2,11 @@ extends PlaceableObject
 class_name CropLand
 
 var current_crop_id: String = ""
-var growth_time_total: float = 60.0 # Default 60 seconds
+var growth_time_total: float = 60.0 # Loaded dynamically from CropData
 var current_growth_time: float = 0.0
+var crop_data: CropData = null
 
 @onready var crop_sprite: Sprite2D = $CropSprite
-
-# Mapping crop_id to their texture paths
-# Texture paths for stages 1, 2, 3
-const CROP_TEXTURES = {
-	"wheat": ["res://Arts/caytrong-v2/Wheat1.png", "res://Arts/caytrong-v2/Wheat2.png", "res://Arts/caytrong-v2/Wheat3.png"],
-	"corn": ["res://Arts/caytrong-v2/corn1.png", "res://Arts/caytrong-v2/corn2.png", "res://Arts/caytrong-v2/corn3.png"],
-	"carrot": ["res://Arts/caytrong-v2/carrot1.png", "res://Arts/caytrong-v2/carrot2.png", "res://Arts/caytrong-v2/carrot3.png"],
-	"cabbage": ["res://Arts/caytrong-v2/Cabbage1.png", "res://Arts/caytrong-v2/Cabbage2.png", "res://Arts/caytrong-v2/Cabbage3.png"],
-	"potato": ["res://Arts/caytrong-v2/Potato1.png", "res://Arts/caytrong-v2/Potato2.png", "res://Arts/caytrong-v2/Potato3.png"],
-	"tomato": ["res://Arts/caytrong-v2/Tomato1.png", "res://Arts/caytrong-v2/Tomato2.png", "res://Arts/caytrong-v2/Tomato3.png"],
-	"pumpkin": ["res://Arts/caytrong-v2/Pumpkin1.png", "res://Arts/caytrong-v2/Pumpkin2.png", "res://Arts/caytrong-v2/Pumpkin3.png"],
-	"rice": ["res://Arts/caytrong-v2/Rice1.png", "res://Arts/caytrong-v2/Rice2.png", "res://Arts/caytrong-v2/Rice3.png"],
-	"sugarcane": ["res://Arts/caytrong-v2/Sugarcane1.png", "res://Arts/caytrong-v2/Sugarcane2.png", "res://Arts/caytrong-v2/Sugarcane3.png"],
-	"beans": ["res://Arts/caytrong-v2/beans1.png", "res://Arts/caytrong-v2/beans2.png", "res://Arts/caytrong-v2/beans3.png"],
-	"cotton": ["res://Arts/caytrong-v2/cotton1.png", "res://Arts/caytrong-v2/cotton2.png", "res://Arts/caytrong-v2/cotton3.png"],
-	"pepper": ["res://Arts/caytrong-v2/pepper1.png", "res://Arts/caytrong-v2/pepper2.png", "res://Arts/caytrong-v2/pepper3.png"],
-	"sugar_beet": ["res://Arts/caytrong-v2/Sugar_Beet1.png", "res://Arts/caytrong-v2/Sugar_Beet2.png", "res://Arts/caytrong-v2/Sugar_Beet3.png"],
-	"strawbarry": ["res://Arts/UI/shop/icon_caytrong_shop/Strawberry Bush tree.png", "res://Arts/UI/shop/icon_caytrong_shop/Strawberry Bush tree.png", "res://Arts/UI/shop/icon_caytrong_shop/Strawberry Bush tree.png"] # Placeholder for strawberry
-}
 
 func _ready():
 	super._ready()
@@ -48,6 +30,12 @@ void vertex() {
 		mat.shader = shader
 		crop_sprite.material = mat
 
+	if current_crop_id != "":
+		_load_crop_data(current_crop_id)
+		if crop_data and crop_sprite:
+			crop_sprite.visible = true
+			update_crop_visual()
+
 func _process(delta):
 	if current_crop_id != "":
 		if current_growth_time < growth_time_total:
@@ -57,6 +45,7 @@ func _process(delta):
 func plant_seed(crop_id: String):
 	current_crop_id = crop_id
 	current_growth_time = 0.0
+	_load_crop_data(crop_id)
 	
 	if crop_sprite:
 		crop_sprite.visible = true
@@ -75,6 +64,7 @@ func harvest() -> String:
 	var harvested_crop_id = current_crop_id
 	current_crop_id = ""
 	current_growth_time = 0.0
+	crop_data = null
 	
 	if crop_sprite:
 		crop_sprite.visible = false
@@ -83,20 +73,30 @@ func harvest() -> String:
 	return harvested_crop_id
 
 func update_crop_visual():
-	if current_crop_id == "" or not CROP_TEXTURES.has(current_crop_id):
+	if current_crop_id == "" or crop_data == null or crop_data.stage_textures.size() == 0:
 		return
 		
 	var progress = current_growth_time / growth_time_total
 	var stage_index = 0
 	
 	if progress >= 1.0:
-		stage_index = 2 # 100% frame 3
+		stage_index = min(2, crop_data.stage_textures.size() - 1) # 100% frame 3
 	elif progress >= 0.3:
-		stage_index = 1 # 30-99% frame 2
+		stage_index = min(1, crop_data.stage_textures.size() - 1) # 30-99% frame 2
 	else:
 		stage_index = 0 # 0-30% frame 1
 		
-	var texture_path = CROP_TEXTURES[current_crop_id][stage_index]
-	var tex = load(texture_path)
-	if tex:
+	var tex = crop_data.stage_textures[stage_index]
+	if tex and crop_sprite:
 		crop_sprite.texture = tex
+
+func _load_crop_data(crop_id: String):
+	var path = "res://Sence/Farm/Crops/%s.tres" % crop_id
+	if ResourceLoader.exists(path):
+		crop_data = load(path) as CropData
+		if crop_data:
+			growth_time_total = crop_data.growth_time
+	else:
+		push_warning("CropData resource not found at: %s" % path)
+		crop_data = null
+		growth_time_total = 60.0

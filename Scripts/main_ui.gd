@@ -100,7 +100,7 @@ const SHOP_ITEMS := {
 		{"id": "peacock_house", "name": "Nhà Chim Công", "icon": "res://Arts/UI/shop/icon_chuong-assets/Peacock House.png", "scene": "res://Sence/Objects/PeacockHouse/PeacockHouse.tscn", "price": 0, "owned": "0/1", "locked": false},
 	],
 	"farms": [
-		{"id": "crop_land", "name": "Ô Đất Trồng", "icon": "res://Arts/UI/shop/icon_chuong-assets/land.png", "scene": "res://Sence/Objects/CropLand/CropLand.tscn", "price": 1, "owned": "16/16", "locked": false},
+		{"id": "crop_land", "name": "Ô Đất Trồng", "icon": "res://Arts/UI/shop/icon_chuong-assets/land.png", "scene": "res://Sence/Farm/CropLand.tscn", "price": 1, "owned": "16/16", "locked": false},
 		{"id": "wheat_seed", "name": "Hạt Lúa Mì", "icon": "res://Arts/caytrong-assets/hat_giong/Wheat.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "wheat", "price": 1, "owned": "0/99", "locked": false},
 		{"id": "corn_seed", "name": "Hạt Ngô", "icon": "res://Arts/caytrong-assets/hat_giong/Corn.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "corn", "price": 2, "owned": "0/99", "locked": false},
 		{"id": "carrot_seed", "name": "Hạt Cà Rốt", "icon": "res://Arts/caytrong-assets/hat_giong/Carrot.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "carrot", "price": 3, "owned": "0/99", "locked": false},

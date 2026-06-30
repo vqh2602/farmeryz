@@ -246,7 +246,7 @@ func test_shop_spawn_invalid_cell_removes_new_object():
 		"id": "test_land",
 		"name": "Test Land",
 		"icon": "res://Arts/UI/shop/icon_chuong-assets/land.png",
-		"scene": "res://Sence/Objects/CropLand/CropLand.tscn",
+		"scene": "res://Sence/Farm/CropLand.tscn",
 	}
 
 	var before_count := objects.get_child_count()
