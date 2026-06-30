@@ -103,12 +103,12 @@ script = ExtResource("7_mlpvh")
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="PreviewLayer" type="TileMapLayer" parent="." unique_id=1190688442]
+position = Vector2(0, -1)
+tile_set = SubResource("TileSet_n5nn2")
+
 [node name="MainUI" type="CanvasLayer" parent="." unique_id=102880280]
 script = ExtResource("10_main_ui")
 
 [node name="PlacementManager" type="Node2D" parent="." unique_id=836199793]
 script = ExtResource("9_rxqed")
-
-[node name="PreviewLayer" type="TileMapLayer" parent="." unique_id=1190688442]
-position = Vector2(0, -1)
-tile_set = SubResource("TileSet_n5nn2")

@@ -43,6 +43,8 @@ var current_cell: Vector2i = Vector2i.ZERO
 var is_current_cell_valid: bool = false
 
 
+var action_drag_start_screen_pos: Vector2 = Vector2.ZERO
+
 func _ready():
 	print("=== PlacementManager ready ===")
 
@@ -66,7 +68,8 @@ func _ready():
 	action_drag_icon = Sprite2D.new()
 	action_drag_icon.z_index = 200
 	action_drag_icon.visible = false
-	add_child(action_drag_icon)
+	action_drag_icon.scale = Vector2(0.5, 0.5)
+	world.add_child(action_drag_icon)
 
 func _process(delta):
 	if pending_drag_object != null and dragging_object == null:
@@ -79,13 +82,19 @@ func _process(delta):
 		update_edge_scroll(delta)
 
 
-func _input(event):
+func _unhandled_input(event):
+	if event is InputEventScreenTouch:
+		print("[PM] _unhandled_input: ScreenTouch pressed=", event.pressed, " pos=", event.position)
+		if not event.pressed and is_action_dragging:
+			print("[PM]   -> stop_action_drag (touch release)")
+			stop_action_drag()
+			
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if is_action_dragging:
-				if not event.pressed:
-					stop_action_drag()
-				return
+			print("[PM] _unhandled_input: MouseButton pressed=", event.pressed, " pos=", event.position)
+			if is_action_dragging and not event.pressed:
+				print("[PM]   -> stop_action_drag (mouse release)")
+				stop_action_drag()
 				
 			if dragging_object != null:
 				if not event.pressed:
@@ -96,6 +105,11 @@ func _input(event):
 				return
 
 			if event.pressed:
+				# Nếu đang kéo action (đã bắt đầu từ gui_input), bỏ qua bắt đầu kéo object
+				if is_action_dragging:
+					print("[PM]   -> skip begin_drag_press (action dragging)")
+					return
+				print("[PM]   -> begin_drag_press")
 				begin_drag_press(event.position)
 			else:
 				cancel_pending_drag()
@@ -105,11 +119,17 @@ func _input(event):
 			elif dragging_object == shop_spawn_object:
 				cancel_shop_spawn()
 
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion or event is InputEventScreenDrag:
 		if is_action_dragging:
-			update_action_drag(event.position)
+			var dist = event.position.distance_to(action_drag_start_screen_pos)
+			print("[PM] _unhandled_input: Motion/Drag dist=", snapped(dist, 0.1), " is_action_dragging=true")
+			if dist > 10.0:
+				update_action_drag(event.position)
+			else:
+				var world_pos = get_viewport().get_canvas_transform().affine_inverse() * event.position
+				action_drag_icon.global_position = world_pos
 			return
-			
+
 		if dragging_object == shop_spawn_object:
 			shop_spawn_has_moved = shop_spawn_has_moved or shop_spawn_start_screen_pos.distance_to(event.position) >= drag_start_distance
 
@@ -152,6 +172,7 @@ func register_existing_objects():
 
 
 func begin_drag_press(screen_pos: Vector2):
+	print("[PM] begin_drag_press at ", screen_pos)
 	if dragging_object != null or shop_spawn_object != null:
 		return
 
@@ -718,6 +739,7 @@ func update_edge_scroll(delta: float):
 			update_drag()
 			
 func _on_action_drag_started(action_type: String, item_id: String):
+	print("[PM] _on_action_drag_started: type=", action_type, " id=", item_id)
 	is_action_dragging = true
 	current_action_type = action_type
 	current_action_payload = item_id
@@ -733,16 +755,19 @@ func _on_action_drag_started(action_type: String, item_id: String):
 					action_drag_icon.texture = load(seed_data["icon"])
 					break
 	
-	update_action_drag(get_viewport().get_mouse_position())
+	action_drag_start_screen_pos = get_viewport().get_mouse_position()
+	var world_pos = get_viewport().get_canvas_transform().affine_inverse() * action_drag_start_screen_pos
+	action_drag_icon.global_position = world_pos
 
 func update_action_drag(screen_pos: Vector2):
 	if not is_action_dragging: return
 	
-	var world_pos = camera.get_global_transform_with_canvas().affine_inverse() * screen_pos
+	var world_pos = get_viewport().get_canvas_transform().affine_inverse() * screen_pos
 	action_drag_icon.global_position = world_pos
 	
 	var cell = get_cell_from_world_position(world_pos)
 	var target = get_crop_land_at_cell(cell)
+	print("[PM] update_action_drag: screen=", screen_pos, " cell=", cell, " target=", target)
 	
 	if target != null and target.has_method("plant_seed"):
 		if current_action_type == "plant":
@@ -756,6 +781,7 @@ func update_action_drag(screen_pos: Vector2):
 					GameData.add_seeds(harvested_id, 3)
 
 func stop_action_drag():
+	print("[PM] stop_action_drag: was type=", current_action_type, " id=", current_action_payload)
 	is_action_dragging = false
 	current_action_type = ""
 	current_action_payload = ""

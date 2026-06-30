@@ -1,6 +1,7 @@
 extends Control
 class_name ActionOverlay
 
+# Signal phát khi user bắt đầu KÉO thực sự (đã di chuyển đủ xa)
 signal item_drag_started(action_type: String, item_id: String)
 
 @onready var item_container: HBoxContainer = $PanelContainer/MarginContainer/HBoxContainer
@@ -8,12 +9,20 @@ signal item_drag_started(action_type: String, item_id: String)
 var current_target: PlaceableObject = null
 var current_mode: String = "" # "plant" or "harvest"
 
+# Trạng thái pending drag (user đã ấn nhưng chưa kéo đủ xa)
+var _pending_action_type: String = ""
+var _pending_item_id: String = ""
+var _pending_start_pos: Vector2 = Vector2.ZERO
+var _is_pending: bool = false
+const DRAG_THRESHOLD: float = 8.0
+
 func _ready():
 	hide()
 
 func show_for_plant(target: PlaceableObject):
 	current_target = target
 	current_mode = "plant"
+	_cancel_pending()
 	_populate_seeds()
 	_update_position(target)
 	show()
@@ -21,19 +30,18 @@ func show_for_plant(target: PlaceableObject):
 func show_for_harvest(target: PlaceableObject):
 	current_target = target
 	current_mode = "harvest"
+	_cancel_pending()
 	_populate_harvest()
 	_update_position(target)
 	show()
 
 func _update_position(target: PlaceableObject):
-	# Position above the target in world space
 	position = target.global_position + Vector2(-size.x / 2, -100)
 
 func _populate_seeds():
 	for child in item_container.get_children():
 		child.queue_free()
 		
-	# Lấy danh sách hạt giống từ shop data (farms category)
 	var main_ui = get_tree().get_first_node_in_group("main_ui")
 	if not main_ui: return
 	
@@ -41,10 +49,8 @@ func _populate_seeds():
 	for seed_data in seeds:
 		var crop_id = seed_data.get("crop_id", "")
 		if crop_id == "": continue
-		
 		var count = GameData.get_seed_count(crop_id)
-		if count <= 0: continue # Optional: Only show seeds we have
-		
+		if count <= 0: continue
 		var btn = _create_item_button(seed_data["icon"], str(count))
 		btn.gui_input.connect(_on_item_gui_input.bind(btn, "plant", crop_id))
 		item_container.add_child(btn)
@@ -65,8 +71,7 @@ func _create_item_button(icon_path: String, label_text: String) -> TextureRect:
 	rect.custom_minimum_size = Vector2(80, 80)
 	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	rect.mouse_filter = Control.MOUSE_FILTER_PASS
-	
+	rect.mouse_filter = Control.MOUSE_FILTER_STOP
 	if label_text != "":
 		var label = Label.new()
 		label.text = label_text
@@ -75,12 +80,85 @@ func _create_item_button(icon_path: String, label_text: String) -> TextureRect:
 		label.set_anchors_preset(Control.PRESET_FULL_RECT)
 		label.add_theme_color_override("font_outline_color", Color.BLACK)
 		label.add_theme_constant_override("outline_size", 4)
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		rect.add_child(label)
-		
 	return rect
 
 func _on_item_gui_input(event: InputEvent, btn: TextureRect, action_type: String, item_id: String):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		item_drag_started.emit(action_type, item_id)
-		# Tắt menu khi bắt đầu kéo
-		hide()
+	# Khi ấn xuống: ghi nhớ item, CHƯA emit signal, CHƯA hide
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			print("[Overlay] gui_input: MouseButton PRESS on '", item_id, "' at ", event.global_position)
+			_pending_action_type = action_type
+			_pending_item_id = item_id
+			_pending_start_pos = event.global_position
+			_is_pending = true
+			get_viewport().set_input_as_handled()
+		else:
+			print("[Overlay] gui_input: MouseButton RELEASE")
+			if _is_pending:
+				print("[Overlay]   -> still pending, cancel (tap without drag)")
+				_cancel_pending()
+	elif event is InputEventScreenTouch:
+		if event.pressed:
+			print("[Overlay] gui_input: ScreenTouch PRESS on '", item_id, "' at ", event.position)
+			_pending_action_type = action_type
+			_pending_item_id = item_id
+			_pending_start_pos = event.position
+			_is_pending = true
+			get_viewport().set_input_as_handled()
+		else:
+			print("[Overlay] gui_input: ScreenTouch RELEASE")
+			if _is_pending:
+				print("[Overlay]   -> still pending, cancel (tap without drag)")
+				_cancel_pending()
+	else:
+		print("[Overlay] gui_input: other event: ", event.get_class())
+
+func _input(event):
+	if not _is_pending:
+		return
+	
+	# Khi đang pending, "nuốt" mọi event liên quan để PlacementManager không nhận được
+	if event is InputEventMouseMotion:
+		var dist = event.global_position.distance_to(_pending_start_pos)
+		print("[Overlay] _input: MouseMotion dist=", snapped(dist, 0.1), " threshold=", DRAG_THRESHOLD)
+		if dist >= DRAG_THRESHOLD:
+			print("[Overlay]   -> DRAG THRESHOLD MET! Starting real drag")
+			_start_real_drag()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventScreenDrag:
+		var dist = event.position.distance_to(_pending_start_pos)
+		print("[Overlay] _input: ScreenDrag dist=", snapped(dist, 0.1), " threshold=", DRAG_THRESHOLD)
+		if dist >= DRAG_THRESHOLD:
+			print("[Overlay]   -> DRAG THRESHOLD MET! Starting real drag")
+			_start_real_drag()
+		get_viewport().set_input_as_handled()
+	
+	# Nếu nhả tay mà chưa đủ xa → hủy
+	elif event is InputEventMouseButton:
+		print("[Overlay] _input: MouseButton pressed=", event.pressed)
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			print("[Overlay]   -> RELEASE while pending, cancel")
+			_cancel_pending()
+		get_viewport().set_input_as_handled()
+	elif event is InputEventScreenTouch:
+		print("[Overlay] _input: ScreenTouch pressed=", event.pressed)
+		if not event.pressed:
+			print("[Overlay]   -> RELEASE while pending, cancel")
+			_cancel_pending()
+		get_viewport().set_input_as_handled()
+
+func _start_real_drag():
+	print("[Overlay] _start_real_drag: type=", _pending_action_type, " id=", _pending_item_id)
+	var action_type = _pending_action_type
+	var item_id = _pending_item_id
+	_cancel_pending()
+	hide()
+	item_drag_started.emit(action_type, item_id)
+
+func _cancel_pending():
+	_is_pending = false
+	_pending_action_type = ""
+	_pending_item_id = ""
+	_pending_start_pos = Vector2.ZERO
