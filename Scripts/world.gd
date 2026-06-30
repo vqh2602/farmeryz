@@ -23,6 +23,7 @@ func _ready():
 	var overlay_scene = load("res://Sence/Farm/ActionOverlay.tscn")
 	if overlay_scene:
 		action_overlay = overlay_scene.instantiate()
+		action_overlay.z_index = 300
 		add_child(action_overlay)
 		if farm_action_manager:
 			farm_action_manager.action_overlay = action_overlay
