@@ -19,6 +19,7 @@ script = ExtResource("1_placeable")
 object_id = "crop_land"
 display_name = "Ô Đất Trồng"
 use_area_footprint = false
+draggable = false
 
 [node name="Area" type="TileMapLayer" parent="." unique_id=51066010]
 modulate = Color(1, 1, 1, 0)

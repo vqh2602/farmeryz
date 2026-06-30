@@ -65,6 +65,23 @@ func plant_seed(crop_id: String):
 func has_crop() -> bool:
 	return current_crop_id != ""
 
+func is_fully_grown() -> bool:
+	return has_crop() and current_growth_time >= growth_time_total
+
+func harvest() -> String:
+	if not is_fully_grown():
+		return ""
+		
+	var harvested_crop_id = current_crop_id
+	current_crop_id = ""
+	current_growth_time = 0.0
+	
+	if crop_sprite:
+		crop_sprite.visible = false
+		crop_sprite.texture = null
+		
+	return harvested_crop_id
+
 func update_crop_visual():
 	if current_crop_id == "" or not CROP_TEXTURES.has(current_crop_id):
 		return

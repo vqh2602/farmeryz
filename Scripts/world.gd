@@ -4,6 +4,18 @@ extends Node2D
 @onready var placement_manager: PlacementManager = $PlacementManager
 @onready var cell_debug_label: Label = $CanvasLayer/CellDebugLabel
 
+var action_overlay: ActionOverlay
+
+func _ready():
+	# Instance the ActionOverlay
+	var overlay_scene = load("res://Sence/UI/ActionOverlay.tscn")
+	if overlay_scene:
+		action_overlay = overlay_scene.instantiate()
+		add_child(action_overlay)
+		# Pass reference to placement manager
+		if placement_manager:
+			placement_manager.action_overlay = action_overlay
+			action_overlay.item_drag_started.connect(placement_manager._on_action_drag_started)
 
 func _process(_delta):
 	var mouse_cell: Vector2i = get_mouse_cell()

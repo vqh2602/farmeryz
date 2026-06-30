@@ -1,0 +1,2 @@
+# Append to placement_manager.gd
+# Wait, I should use replace_file_content or a script to append cleanly.

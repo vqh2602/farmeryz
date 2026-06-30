@@ -140,6 +140,7 @@ var _active_button: Button
 
 
 func _ready() -> void:
+	add_to_group("main_ui")
 	layer = 20
 	_placement_manager = get_parent().get_node_or_null("PlacementManager") as PlacementManager
 	_ui_font = load(FONT_PATH) as Font
@@ -496,6 +497,26 @@ func _on_item_card_gui_input(event: InputEvent, item: Dictionary) -> void:
 
 func _start_build_from_item(item: Dictionary) -> void:
 	if _is_item_locked(item):
+		return
+
+	if item.has("crop_id"):
+		GameData.add_seeds(item["crop_id"], 3)
+		print("Bought 3 seeds of ", item["crop_id"])
+		# Có thể hiển thị thông báo mua thành công ở đây nếu muốn
+		return
+
+	if _placement_manager == null:
+		push_warning("Không tìm thấy PlacementManager để xây item: %s" % item.get("name", "unknown"))
+		return
+
+	var spawned_obj := _placement_manager.start_build_from_shop_item(item)
+	if spawned_obj != null:
+		hide_shop()
+
+func _on_buy_button_pressed(item: Dictionary) -> void:
+	if item.has("crop_id"):
+		GameData.add_seeds(item["crop_id"], 3)
+		print("Bought 3 seeds of ", item["crop_id"])
 		return
 
 	if _placement_manager == null:
