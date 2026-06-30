@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://bvsyquoyo4j18"]
 
-[ext_resource type="Script" path="res://Scripts/crop_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Cabbage1.png" id="2_t1"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Cabbage2.png" id="3_t2"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Cabbage3.png" id="4_t3"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-assets/hat_giong/Cabbage.png" id="5_icon"]
+[ext_resource type="Script" uid="uid://bjtedf747t6cu" path="res://Scripts/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://sayjixr5vv0d" path="res://Arts/caytrong-v2/Cabbage1.png" id="2_t1"]
+[ext_resource type="Texture2D" uid="uid://dpu8mprymtwhp" path="res://Arts/caytrong-v2/Cabbage2.png" id="3_t2"]
+[ext_resource type="Texture2D" uid="uid://ks0i4ha3gfjm" path="res://Arts/caytrong-v2/Cabbage3.png" id="4_t3"]
+[ext_resource type="Texture2D" uid="uid://di8wgrgqdvch0" path="res://Arts/caytrong-assets/hat_giong/Cabbage.png" id="5_icon"]
 
 [resource]
 script = ExtResource("1_script")
@@ -13,3 +13,4 @@ display_name = "Bắp cải"
 growth_time = 40.0
 stage_textures = Array[Texture2D]([ExtResource("2_t1"), ExtResource("3_t2"), ExtResource("4_t3")])
 seed_icon = ExtResource("5_icon")
+visual_scale = Vector2(0.5, 0.5)

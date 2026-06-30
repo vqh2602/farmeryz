@@ -118,9 +118,32 @@ func update_action_drag(screen_pos: Vector2):
 				target.call("plant_seed", current_action_payload)
 		elif current_action_type == "harvest":
 			if target.call("is_fully_grown"):
+				var crop_data = target.get("crop_data")
 				var harvested_id = target.call("harvest")
 				if harvested_id != "":
 					GameData.add_seeds(harvested_id, 3)
+					_spawn_harvest_effect(target.global_position, crop_data)
+
+func _spawn_harvest_effect(pos: Vector2, crop_data: CropData):
+	if crop_data == null: return
+	
+	var tex = crop_data.seed_icon
+	if tex == null and crop_data.stage_textures.size() > 0:
+		tex = crop_data.stage_textures[-1]
+		
+	if tex == null: return
+	
+	# Programmatically instantiate HarvestEffect Node2D
+	var effect_script = load("res://Scripts/harvest_effect.gd")
+	var effect = Node2D.new()
+	effect.set_script(effect_script)
+	
+	# Target screen position (top-left near inventory)
+	var target_screen_pos = Vector2(80, 80)
+	
+	world.add_child(effect)
+	effect.global_position = pos
+	effect.call("setup", tex, target_screen_pos)
 
 func stop_action_drag():
 	print("[FAM] stop_action_drag: was type=", current_action_type, " id=", current_action_payload)
