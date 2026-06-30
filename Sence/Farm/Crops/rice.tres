@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://xekmx2rh6s00"]
 
-[ext_resource type="Script" path="res://Scripts/crop_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Rice1.png" id="2_t1"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Rice2.png" id="3_t2"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Rice3.png" id="4_t3"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-assets/hat_giong/Wheat.png" id="5_icon"]
+[ext_resource type="Script" uid="uid://bjtedf747t6cu" path="res://Scripts/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://pl4brqqos1ar" path="res://Arts/caytrong-assets/hat_giong/Rice.png" id="2_nqeij"]
+[ext_resource type="Texture2D" uid="uid://c8fe4q4e17spr" path="res://Arts/caytrong-v2/Rice1.png" id="2_t1"]
+[ext_resource type="Texture2D" uid="uid://c0n64m2ejgu1h" path="res://Arts/caytrong-v2/Rice2.png" id="3_t2"]
+[ext_resource type="Texture2D" uid="uid://crjrtdnx3demu" path="res://Arts/caytrong-v2/Rice3.png" id="4_t3"]
 
 [resource]
 script = ExtResource("1_script")
@@ -12,4 +12,5 @@ crop_id = "rice"
 display_name = "Gạo"
 growth_time = 80.0
 stage_textures = Array[Texture2D]([ExtResource("2_t1"), ExtResource("3_t2"), ExtResource("4_t3")])
-seed_icon = ExtResource("5_icon")
+seed_icon = ExtResource("2_nqeij")
+visual_scale = Vector2(0.5, 0.5)

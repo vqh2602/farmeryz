@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://cvqcyevdgscv5"]
 
-[ext_resource type="Script" path="res://Scripts/crop_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/cotton1.png" id="2_t1"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/cotton2.png" id="3_t2"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/cotton3.png" id="4_t3"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-assets/hat_giong/Wheat.png" id="5_icon"]
+[ext_resource type="Script" uid="uid://bjtedf747t6cu" path="res://Scripts/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bxmoqfidlfpwj" path="res://Arts/caytrong-assets/hat_giong/Cotton.png" id="2_3h22g"]
+[ext_resource type="Texture2D" uid="uid://vx5x06b8kxm1" path="res://Arts/caytrong-v2/cotton1.png" id="2_t1"]
+[ext_resource type="Texture2D" uid="uid://dokolpulcra2q" path="res://Arts/caytrong-v2/cotton2.png" id="3_t2"]
+[ext_resource type="Texture2D" uid="uid://bhhodfxtl36fp" path="res://Arts/caytrong-v2/cotton3.png" id="4_t3"]
 
 [resource]
 script = ExtResource("1_script")
@@ -12,4 +12,5 @@ crop_id = "cotton"
 display_name = "Bông"
 growth_time = 110.0
 stage_textures = Array[Texture2D]([ExtResource("2_t1"), ExtResource("3_t2"), ExtResource("4_t3")])
-seed_icon = ExtResource("5_icon")
+seed_icon = ExtResource("2_3h22g")
+visual_scale = Vector2(0.5, 0.5)

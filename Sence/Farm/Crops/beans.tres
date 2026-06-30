@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://cixvaho63wua1"]
 
-[ext_resource type="Script" path="res://Scripts/crop_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/beans1.png" id="2_t1"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/beans2.png" id="3_t2"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/beans3.png" id="4_t3"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-assets/hat_giong/Wheat.png" id="5_icon"]
+[ext_resource type="Script" uid="uid://bjtedf747t6cu" path="res://Scripts/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://kxy8aq53o3ey" path="res://Arts/caytrong-assets/hat_giong/Beans.png" id="2_4uqeh"]
+[ext_resource type="Texture2D" uid="uid://dvq58cj3elqau" path="res://Arts/caytrong-v2/beans1.png" id="2_t1"]
+[ext_resource type="Texture2D" uid="uid://ilmjq8lswfwd" path="res://Arts/caytrong-v2/beans2.png" id="3_t2"]
+[ext_resource type="Texture2D" uid="uid://dfx83u7dh8wsm" path="res://Arts/caytrong-v2/beans3.png" id="4_t3"]
 
 [resource]
 script = ExtResource("1_script")
@@ -12,4 +12,5 @@ crop_id = "beans"
 display_name = "Đậu"
 growth_time = 100.0
 stage_textures = Array[Texture2D]([ExtResource("2_t1"), ExtResource("3_t2"), ExtResource("4_t3")])
-seed_icon = ExtResource("5_icon")
+seed_icon = ExtResource("2_4uqeh")
+visual_scale = Vector2(0.5, 0.5)

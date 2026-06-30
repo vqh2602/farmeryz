@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://djvd1hf3vovow"]
 
-[ext_resource type="Script" path="res://Scripts/crop_data.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Tomato1.png" id="2_t1"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Tomato2.png" id="3_t2"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-v2/Tomato3.png" id="4_t3"]
-[ext_resource type="Texture2D" path="res://Arts/caytrong-assets/hat_giong/Tomato.png" id="5_icon"]
+[ext_resource type="Script" uid="uid://bjtedf747t6cu" path="res://Scripts/crop_data.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bs7wfxhjkcxd6" path="res://Arts/caytrong-v2/Tomato1.png" id="2_t1"]
+[ext_resource type="Texture2D" uid="uid://cqunp3oe4bmf" path="res://Arts/caytrong-v2/Tomato2.png" id="3_t2"]
+[ext_resource type="Texture2D" uid="uid://cjjb3saaj1tqy" path="res://Arts/caytrong-v2/Tomato3.png" id="4_t3"]
+[ext_resource type="Texture2D" uid="uid://cjicihbpwgb11" path="res://Arts/caytrong-assets/hat_giong/Tomato.png" id="5_icon"]
 
 [resource]
 script = ExtResource("1_script")
 crop_id = "tomato"
 display_name = "Cà chua"
-growth_time = 60.0
 stage_textures = Array[Texture2D]([ExtResource("2_t1"), ExtResource("3_t2"), ExtResource("4_t3")])
 seed_icon = ExtResource("5_icon")
+visual_scale = Vector2(0.5, 0.5)

@@ -115,6 +115,7 @@ const SHOP_ITEMS := {
 		{"id": "pepper_seed", "name": "Hạt Ớt", "icon": "res://Arts/caytrong-assets/hat_giong/Pepper.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "pepper", "price": 12, "owned": "0/99", "locked": false},
 		{"id": "sugar_beet_seed", "name": "Hạt Củ Cải Đường", "icon": "res://Arts/caytrong-assets/hat_giong/Sugar Beet.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "sugar_beet", "price": 13, "owned": "0/99", "locked": false},
 		{"id": "strawbarry_seed", "name": "Hạt Dâu Tây", "icon": "res://Arts/caytrong-assets/hat_giong/Strawbarry.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "strawbarry", "price": 14, "owned": "0/99", "locked": false},
+		{"id": "flax_seed", "name": "Hạt Lanh", "icon": "res://Arts/caytrong-assets/hat_giong/Flax.png", "scene": "res://Sence/Objects/SeedObject.tscn", "crop_id": "flax", "price": 15, "owned": "0/99", "locked": false},
 	],
 	"decor": [
 		{"id": "bicycle", "name": "Xe Đạp", "icon": "res://Arts/UI/decor/decor/icondecor_shop/bicycle.png", "scene": "res://Sence/Objects/Bicycle/Bicycle.tscn", "price": 25, "owned": "0/8", "locked": false},
