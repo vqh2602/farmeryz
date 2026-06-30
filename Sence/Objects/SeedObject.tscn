@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/seed_object.gd" id="1_seedobj"]
+
+[node name="SeedObject" type="Node2D"]
+script = ExtResource("1_seedobj")
+object_id = "seed"
+display_name = "Hạt Giống"
+size_in_cells = Vector2i(1, 1)
+draggable = true
+blocks_cells = false
+use_area_footprint = false
+use_bottom_center_footprint_anchor = false

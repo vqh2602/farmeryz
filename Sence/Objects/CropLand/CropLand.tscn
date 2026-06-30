@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://cqur6goqggcdl"]
+[gd_scene load_steps=5 format=3 uid="uid://cqur6goqggcdl"]
 
-[ext_resource type="Script" uid="uid://b8krhndoq81cf" path="res://Scripts/placeable_object.gd" id="1_placeable"]
+[ext_resource type="Script" path="res://Scripts/crop_land.gd" id="1_placeable"]
 [ext_resource type="Texture2D" uid="uid://bj8pvpv17nvsv" path="res://Arts/Map/tile_green.png" id="2_mqh3w"]
 [ext_resource type="Texture2D" uid="uid://c6rmcwi6s8ium" path="res://Arts/caytrong-v2/odat.png" id="2_texture"]
 
@@ -32,3 +32,7 @@ position = Vector2(-63.000008, -38)
 scale = Vector2(0.51229507, 0.5277778)
 texture = ExtResource("2_texture")
 centered = false
+
+[node name="CropSprite" type="Sprite2D" parent="." unique_id=1429273049]
+position = Vector2(0, -10)
+scale = Vector2(0.8, 0.8)

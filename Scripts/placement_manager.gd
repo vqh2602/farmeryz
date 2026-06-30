@@ -27,6 +27,7 @@ var selected_object: PlaceableObject = null
 var pending_drag_object: PlaceableObject = null
 var pending_drag_screen_pos: Vector2 = Vector2.ZERO
 var pending_drag_start_msec: int = 0
+var pending_drag_instance_id: int = 0
 var shop_spawn_object: PlaceableObject = null
 var shop_spawn_start_screen_pos: Vector2 = Vector2.ZERO
 var shop_spawn_has_moved: bool = false
@@ -54,7 +55,10 @@ func _ready():
 
 func _process(delta):
 	if pending_drag_object != null and dragging_object == null:
-		try_promote_pending_drag()
+		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			cancel_pending_drag()
+		else:
+			try_promote_pending_drag()
 
 	if dragging_object != null:
 		update_edge_scroll(delta)
@@ -122,6 +126,9 @@ func register_existing_objects():
 
 
 func begin_drag_press(screen_pos: Vector2):
+	if dragging_object != null or shop_spawn_object != null:
+		return
+
 	var obj: PlaceableObject = get_object_under_mouse()
 
 	if obj == null:
@@ -138,6 +145,7 @@ func begin_drag_press(screen_pos: Vector2):
 	pending_drag_object = obj
 	pending_drag_screen_pos = screen_pos
 	pending_drag_start_msec = Time.get_ticks_msec()
+	pending_drag_instance_id = obj.get_instance_id()
 	current_cell = obj.current_cell
 
 
@@ -145,10 +153,23 @@ func cancel_pending_drag():
 	pending_drag_object = null
 	pending_drag_screen_pos = Vector2.ZERO
 	pending_drag_start_msec = 0
+	pending_drag_instance_id = 0
 
 
-func try_promote_pending_drag(screen_pos: Vector2 = Vector2.INF):
+func try_promote_pending_drag(screen_pos: Vector2 = Vector2.INF, require_pressed: bool = true):
 	if pending_drag_object == null:
+		return
+
+	if require_pressed and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		cancel_pending_drag()
+		return
+
+	if not is_instance_valid(pending_drag_object) or pending_drag_object.get_instance_id() != pending_drag_instance_id:
+		cancel_pending_drag()
+		return
+
+	if not pending_drag_object.can_drag():
+		cancel_pending_drag()
 		return
 
 	if screen_pos == Vector2.INF:
@@ -197,19 +218,33 @@ func stop_drag():
 	var is_shop_spawn := obj == shop_spawn_object
 
 	if can_place_object_for_obj(obj, current_cell):
-		move_object_to_cell(obj, current_cell)
-		obj.set_cell(current_cell)
+		if obj.has_method("set_crop_id"): # Duck-typing for SeedObject
+			var target_crop_land = get_crop_land_at_cell(current_cell)
+			if target_crop_land != null:
+				target_crop_land.call("plant_seed", obj.get("crop_id"))
+			
+			obj.queue_free()
+			dragging_object = null
+			if is_shop_spawn:
+				clear_shop_spawn_state()
+			
+			clear_preview()
+			rebuild_occupied_cells()
+			print("Gieo hạt thành công: ", obj.object_id, " tại ô: ", current_cell)
+		else:
+			move_object_to_cell(obj, current_cell)
+			obj.set_cell(current_cell)
 
-		set_object_drag_visual(obj, false)
-		dragging_object = null
-		if is_shop_spawn:
-			clear_shop_spawn_state()
+			set_object_drag_visual(obj, false)
+			dragging_object = null
+			if is_shop_spawn:
+				clear_shop_spawn_state()
 
-		clear_preview()
-		rebuild_occupied_cells()
-		show_animation_controls_for(obj)
+			clear_preview()
+			rebuild_occupied_cells()
+			show_animation_controls_for(obj)
 
-		print("Đặt object thành công: ", obj.object_id, " tại ô: ", current_cell)
+			print("Đặt object thành công: ", obj.object_id, " tại ô: ", current_cell)
 	else:
 		if is_shop_spawn:
 			remove_shop_spawn_object()
@@ -265,6 +300,8 @@ func start_build_from_shop_item(item: Dictionary) -> PlaceableObject:
 	if dragging_object != null:
 		return null
 
+	cancel_pending_drag()
+
 	var scene_path: String = item.get("scene", "")
 	if scene_path.is_empty() or not ResourceLoader.exists(scene_path):
 		push_warning("Không có scene xây dựng hợp lệ cho item: %s" % item.get("name", "unknown"))
@@ -291,6 +328,9 @@ func start_build_from_shop_item(item: Dictionary) -> PlaceableObject:
 	obj.name = _make_unique_object_name(base_id)
 	obj.object_id = "%s_%03d" % [base_id, shop_spawn_counter]
 	obj.display_name = item.get("name", obj.display_name)
+
+	if obj.has_method("set_crop_id") and item.has("crop_id"):
+		obj.call("set_crop_id", item.get("crop_id"))
 
 	objects.add_child(obj)
 
@@ -506,7 +546,23 @@ func get_area_footprint_cells(obj: PlaceableObject, area_layer: TileMapLayer, or
 	return cells
 
 
+func get_crop_land_at_cell(cell: Vector2i) -> PlaceableObject:
+	for child in objects.get_children():
+		if child is PlaceableObject and child.has_method("plant_seed"):
+			var crop_land = child as PlaceableObject
+			var cells = get_object_footprint_cells(crop_land, crop_land.current_cell)
+			if cell in cells:
+				return crop_land
+	return null
+
+
 func can_place_object_for_obj(obj: PlaceableObject, origin_cell: Vector2i) -> bool:
+	if obj.has_method("set_crop_id"):
+		var target = get_crop_land_at_cell(origin_cell)
+		if target != null and not target.call("has_crop"):
+			return true
+		return false
+
 	var cells: Array[Vector2i] = get_object_footprint_cells(obj, origin_cell)
 
 	for cell in cells:

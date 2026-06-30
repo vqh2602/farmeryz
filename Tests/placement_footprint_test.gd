@@ -8,6 +8,8 @@ func _initialize():
 	test_custom_footprint_is_preserved()
 	test_base_scene_main_house_preview()
 	test_drag_requires_hold_and_motion()
+	test_drag_lock_rejects_stale_or_mismatched_pending()
+	test_shop_spawn_clears_pending_drag_lock()
 	test_shop_spawn_placeable_object()
 	test_shop_spawn_invalid_cell_removes_new_object()
 
@@ -108,29 +110,89 @@ func test_drag_requires_hold_and_motion():
 
 	var manager: PlacementManager = scene.get_node("PlacementManager")
 	var obj: PlaceableObject = scene.get_node("Objects/MainHouse")
+	obj.draggable = true
 	var now := Time.get_ticks_msec()
 
 	manager.pending_drag_object = obj
 	manager.pending_drag_screen_pos = Vector2.ZERO
 	manager.pending_drag_start_msec = now
-	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance + 20.0, 0.0))
+	manager.pending_drag_instance_id = obj.get_instance_id()
+	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance + 20.0, 0.0), false)
 	assert_equal(manager.dragging_object, null, "mouse down plus immediate motion does not start drag")
 
 	manager.pending_drag_object = obj
 	manager.pending_drag_screen_pos = Vector2.ZERO
 	manager.pending_drag_start_msec = now - int((manager.drag_hold_seconds + 0.1) * 1000.0)
-	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance - 1.0, 0.0))
+	manager.pending_drag_instance_id = obj.get_instance_id()
+	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance - 1.0, 0.0), false)
 	assert_equal(manager.dragging_object, null, "hold without enough motion does not start drag")
 
 	manager.pending_drag_object = obj
 	manager.pending_drag_screen_pos = Vector2.ZERO
 	manager.pending_drag_start_msec = now - int((manager.drag_hold_seconds + 0.1) * 1000.0)
-	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance + 20.0, 0.0))
+	manager.pending_drag_instance_id = obj.get_instance_id()
+	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance + 20.0, 0.0), false)
 	assert_equal(manager.dragging_object, obj, "hold plus drag starts moving the selected object")
 
 	manager.dragging_object = null
 	manager.cancel_pending_drag()
 	manager.clear_preview()
+	scene.queue_free()
+
+
+func test_drag_lock_rejects_stale_or_mismatched_pending():
+	var scene: Node = load("res://Sence/base.tscn").instantiate()
+	root.add_child(scene)
+	await process_frame
+
+	var manager: PlacementManager = scene.get_node("PlacementManager")
+	var obj: PlaceableObject = scene.get_node("Objects/MainHouse")
+	obj.draggable = true
+	var now := Time.get_ticks_msec() - int((manager.drag_hold_seconds + 0.1) * 1000.0)
+
+	manager.pending_drag_object = obj
+	manager.pending_drag_screen_pos = Vector2.ZERO
+	manager.pending_drag_start_msec = now
+	manager.pending_drag_instance_id = obj.get_instance_id() + 1
+	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance + 20.0, 0.0), false)
+	assert_equal(manager.dragging_object, null, "mismatched drag lock never starts dragging another object")
+	assert_equal(manager.pending_drag_object, null, "mismatched drag lock clears stale pending object")
+
+	manager.pending_drag_object = obj
+	manager.pending_drag_screen_pos = Vector2.ZERO
+	manager.pending_drag_start_msec = now
+	manager.pending_drag_instance_id = obj.get_instance_id()
+	manager.try_promote_pending_drag(Vector2(manager.drag_start_distance + 20.0, 0.0))
+	assert_equal(manager.dragging_object, null, "pending drag does not promote after the mouse button is no longer held")
+	assert_equal(manager.pending_drag_object, null, "released mouse clears pending drag")
+
+	scene.queue_free()
+
+
+func test_shop_spawn_clears_pending_drag_lock():
+	var scene: Node = load("res://Sence/base.tscn").instantiate()
+	root.add_child(scene)
+	await process_frame
+
+	var manager: PlacementManager = scene.get_node("PlacementManager")
+	var obj: PlaceableObject = scene.get_node("Objects/MainHouse")
+	var item := {
+		"id": "test_bakery",
+		"name": "Test Bakery",
+		"icon": "res://Arts/UI/shop/icon_nhamay-assets/Bakery.png",
+		"scene": "res://Sence/Objects/Bakery/Bakery.tscn",
+	}
+
+	manager.pending_drag_object = obj
+	manager.pending_drag_screen_pos = Vector2.ZERO
+	manager.pending_drag_start_msec = Time.get_ticks_msec()
+	manager.pending_drag_instance_id = obj.get_instance_id()
+
+	var spawned := manager.start_build_from_shop_item(item)
+	assert_bool(spawned != null, "shop spawn still creates an object while an old pending drag exists")
+	assert_equal(manager.pending_drag_object, null, "shop spawn clears any old pending map drag")
+	assert_equal(manager.dragging_object, spawned, "shop spawn locks drag to the new shop object")
+
 	scene.queue_free()
 
 
