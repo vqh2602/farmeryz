@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cqur6goqggcdl"]
 
 [ext_resource type="Script" uid="uid://dreqp33245vi0" path="res://Scripts/crop_land.gd" id="1_placeable"]
-[ext_resource type="Resource" path="res://Sence/Farm/Crops/flax.tres" id="2_ct3dw"]
+[ext_resource type="Resource" uid="uid://xekmx2rh6s00" path="res://Sence/Farm/Crops/rice.tres" id="2_ct3dw"]
 [ext_resource type="Texture2D" uid="uid://bj8pvpv17nvsv" path="res://Arts/Map/tile_green.png" id="2_mqh3w"]
 [ext_resource type="Texture2D" uid="uid://c6rmcwi6s8ium" path="res://Arts/caytrong-v2/odat.png" id="2_texture"]
-[ext_resource type="Texture2D" uid="uid://cp8mn2tuvfnrv" path="res://Arts/caytrong-v2/Flax3.png" id="5_qheyj"]
+[ext_resource type="Texture2D" uid="uid://crjrtdnx3demu" path="res://Arts/caytrong-v2/Rice3.png" id="5_qheyj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aq8yq"]
 texture = ExtResource("2_mqh3w")
@@ -38,6 +38,6 @@ texture = ExtResource("2_texture")
 centered = false
 
 [node name="CropSprite" type="Sprite2D" parent="." unique_id=1429273049]
-position = Vector2(-1.5000001, -6.75)
+position = Vector2(-1.5000001, -4.875)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_qheyj")

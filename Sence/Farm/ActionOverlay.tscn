@@ -33,10 +33,28 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_1")
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="MainHBox" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 12
+
+[node name="PrevButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "<"
+flat = true
+
+[node name="ItemContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/MainHBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NextButton" type="Button" parent="PanelContainer/MarginContainer/MainHBox"]
+custom_minimum_size = Vector2(40, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = ">"
+flat = true
