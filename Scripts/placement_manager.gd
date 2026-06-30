@@ -29,11 +29,6 @@ var pending_drag_screen_pos: Vector2 = Vector2.ZERO
 var pending_drag_start_msec: int = 0
 var pending_drag_instance_id: int = 0
 
-var action_overlay: Control = null
-var current_action_type: String = "" # "plant" or "harvest"
-var current_action_payload: String = ""
-var is_action_dragging: bool = false
-var action_drag_icon: Sprite2D = null
 var shop_spawn_object: PlaceableObject = null
 var shop_spawn_start_screen_pos: Vector2 = Vector2.ZERO
 var shop_spawn_has_moved: bool = false
@@ -41,9 +36,6 @@ var shop_spawn_counter: int = 0
 var drag_original_z_indexes: Dictionary = {}
 var current_cell: Vector2i = Vector2i.ZERO
 var is_current_cell_valid: bool = false
-
-
-var action_drag_start_screen_pos: Vector2 = Vector2.ZERO
 
 func _ready():
 	print("=== PlacementManager ready ===")
@@ -60,17 +52,6 @@ func _ready():
 
 	register_existing_objects()
 
-
-	if action_overlay != null and not action_overlay.is_connected("item_drag_started", Callable(self, "_on_action_drag_started")):
-		action_overlay.item_drag_started.connect(_on_action_drag_started)
-		
-	# Tạo sprite hiển thị khi kéo action
-	action_drag_icon = Sprite2D.new()
-	action_drag_icon.z_index = 200
-	action_drag_icon.visible = false
-	action_drag_icon.scale = Vector2(0.5, 0.5)
-	world.add_child(action_drag_icon)
-
 func _process(delta):
 	if pending_drag_object != null and dragging_object == null:
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
@@ -78,23 +59,17 @@ func _process(delta):
 		else:
 			try_promote_pending_drag()
 
-	if dragging_object != null or is_action_dragging:
+	if dragging_object != null:
 		update_edge_scroll(delta)
 
 
 func _unhandled_input(event):
 	if event is InputEventScreenTouch:
 		print("[PM] _unhandled_input: ScreenTouch pressed=", event.pressed, " pos=", event.position)
-		if not event.pressed and is_action_dragging:
-			print("[PM]   -> stop_action_drag (touch release)")
-			stop_action_drag()
 			
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			print("[PM] _unhandled_input: MouseButton pressed=", event.pressed, " pos=", event.position)
-			if is_action_dragging and not event.pressed:
-				print("[PM]   -> stop_action_drag (mouse release)")
-				stop_action_drag()
 				
 			if dragging_object != null:
 				if not event.pressed:
@@ -105,31 +80,15 @@ func _unhandled_input(event):
 				return
 
 			if event.pressed:
-				# Nếu đang kéo action (đã bắt đầu từ gui_input), bỏ qua bắt đầu kéo object
-				if is_action_dragging:
-					print("[PM]   -> skip begin_drag_press (action dragging)")
-					return
 				print("[PM]   -> begin_drag_press")
 				begin_drag_press(event.position)
 			else:
 				cancel_pending_drag()
 		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-			if is_action_dragging:
-				stop_action_drag()
-			elif dragging_object == shop_spawn_object:
+			if dragging_object == shop_spawn_object:
 				cancel_shop_spawn()
 
 	if event is InputEventMouseMotion or event is InputEventScreenDrag:
-		if is_action_dragging:
-			var dist = event.position.distance_to(action_drag_start_screen_pos)
-			print("[PM] _unhandled_input: Motion/Drag dist=", snapped(dist, 0.1), " is_action_dragging=true")
-			if dist > 10.0:
-				update_action_drag(event.position)
-			else:
-				var world_pos = get_viewport().get_canvas_transform().affine_inverse() * event.position
-				action_drag_icon.global_position = world_pos
-			return
-
 		if dragging_object == shop_spawn_object:
 			shop_spawn_has_moved = shop_spawn_has_moved or shop_spawn_start_screen_pos.distance_to(event.position) >= drag_start_distance
 
@@ -182,21 +141,12 @@ func begin_drag_press(screen_pos: Vector2):
 		selected_object = null
 		hide_animation_controls()
 		cancel_pending_drag()
-		if action_overlay:
-			action_overlay.hide()
+		if world.action_overlay:
+			world.action_overlay.hide()
 		return
 
 	if not obj.can_drag():
-		# Nếu là CropLand và không cho kéo (CropLand luôn không cho kéo do draggable = false)
-		if obj.has_method("plant_seed"):
-			if action_overlay:
-				if obj.call("has_crop"):
-					if obj.call("is_fully_grown"):
-						action_overlay.call("show_for_harvest", obj)
-				else:
-					action_overlay.call("show_for_plant", obj)
-		else:
-			print("Object không cho kéo: ", obj.object_id)
+		print("Object không cho kéo: ", obj.object_id)
 		return
 
 	selected_object = obj
@@ -205,8 +155,8 @@ func begin_drag_press(screen_pos: Vector2):
 	pending_drag_start_msec = Time.get_ticks_msec()
 	pending_drag_instance_id = obj.get_instance_id()
 	current_cell = obj.current_cell
-	if action_overlay:
-		action_overlay.hide()
+	if world.action_overlay:
+		world.action_overlay.hide()
 
 
 func cancel_pending_drag():
@@ -738,52 +688,3 @@ func update_edge_scroll(delta: float):
 		if dragging_object != null:
 			update_drag()
 			
-func _on_action_drag_started(action_type: String, item_id: String):
-	print("[PM] _on_action_drag_started: type=", action_type, " id=", item_id)
-	is_action_dragging = true
-	current_action_type = action_type
-	current_action_payload = item_id
-	action_drag_icon.visible = true
-	if action_type == "harvest":
-		action_drag_icon.texture = load("res://Arts/UI/item thu hoach/liem.png")
-	else:
-		var main_ui = get_tree().get_first_node_in_group("main_ui")
-		if main_ui:
-			var seeds = main_ui.SHOP_ITEMS.get("farms", [])
-			for seed_data in seeds:
-				if seed_data.get("crop_id") == item_id:
-					action_drag_icon.texture = load(seed_data["icon"])
-					break
-	
-	action_drag_start_screen_pos = get_viewport().get_mouse_position()
-	var world_pos = get_viewport().get_canvas_transform().affine_inverse() * action_drag_start_screen_pos
-	action_drag_icon.global_position = world_pos
-
-func update_action_drag(screen_pos: Vector2):
-	if not is_action_dragging: return
-	
-	var world_pos = get_viewport().get_canvas_transform().affine_inverse() * screen_pos
-	action_drag_icon.global_position = world_pos
-	
-	var cell = get_cell_from_world_position(world_pos)
-	var target = get_crop_land_at_cell(cell)
-	print("[PM] update_action_drag: screen=", screen_pos, " cell=", cell, " target=", target)
-	
-	if target != null and target.has_method("plant_seed"):
-		if current_action_type == "plant":
-			if not target.call("has_crop") and GameData.get_seed_count(current_action_payload) > 0:
-				GameData.consume_seed(current_action_payload)
-				target.call("plant_seed", current_action_payload)
-		elif current_action_type == "harvest":
-			if target.call("is_fully_grown"):
-				var harvested_id = target.call("harvest")
-				if harvested_id != "":
-					GameData.add_seeds(harvested_id, 3)
-
-func stop_action_drag():
-	print("[PM] stop_action_drag: was type=", current_action_type, " id=", current_action_payload)
-	is_action_dragging = false
-	current_action_type = ""
-	current_action_payload = ""
-	if action_drag_icon:
-		action_drag_icon.visible = false
