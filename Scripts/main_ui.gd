@@ -75,9 +75,9 @@ const SHOP_ITEMS := {
 		{"id": "wok", "name": "Chảo Wok", "icon": "res://Arts/Sprint2/Factory/icon_nhamay-assets/wok.png", "scene": "res://Sence/Objects/Wok/Wok.tscn", "price": 0, "owned": "0/1", "locked": false},
 	],
 	"plants": [
-		{"name": "Táo", "icon": "res://Arts/UI/shop/icon_caytrong_shop/apple tree.png", "level": 15, "owned": "0/8", "locked": true},
-		{"name": "Ca Cao", "icon": "res://Arts/UI/shop/icon_caytrong_shop/cacao tree.png", "level": 19, "owned": "0/8", "locked": true},
-		{"name": "Anh Đào", "icon": "res://Arts/UI/shop/icon_caytrong_shop/cherry tree.png", "level": 22, "owned": "0/8", "locked": true},
+		{"id": "apple_tree", "name": "Táo", "icon": "res://Arts/UI/shop/icon_caytrong_shop/apple tree.png", "scene": "res://Sence/Objects/Tree/AppleTree.tscn", "price": 50, "owned": "0/8", "locked": false},
+		{"id": "cacao_tree", "name": "Ca Cao", "icon": "res://Arts/UI/shop/icon_caytrong_shop/cacao tree.png", "scene": "res://Sence/Objects/Tree/CacaoTree.tscn", "price": 60, "owned": "0/8", "locked": false},
+		{"id": "cherry_tree", "name": "Anh Đào", "icon": "res://Arts/UI/shop/icon_caytrong_shop/cherry tree.png", "scene": "res://Sence/Objects/Tree/CherryTree.tscn", "price": 70, "owned": "0/8", "locked": false},
 		{"name": "Tử Đinh Hương", "icon": "res://Arts/UI/shop/icon_caytrong_shop/Lilac tree.png", "level": 26, "owned": "0/8", "locked": true},
 		{"name": "Dâu Tây", "icon": "res://Arts/UI/shop/icon_caytrong_shop/Strawberry Bush tree.png", "level": 36, "owned": "0/8", "locked": true},
 		{"name": "Hoa Hồng", "icon": "res://Arts/UI/shop/icon_caytrong_shop/rose tree.png", "level": 42, "owned": "0/8", "locked": true},

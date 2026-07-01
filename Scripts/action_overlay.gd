@@ -97,7 +97,11 @@ func _populate_harvest():
 	for child in item_container.get_children():
 		child.queue_free()
 		
-	var btn = _create_item_button("res://Arts/UI/item thu hoach/liem.png", "")
+	var icon_path = "res://Arts/UI/item thu hoach/liem.png"
+	if current_target and current_target.has_method("get_harvest_icon"):
+		icon_path = current_target.call("get_harvest_icon")
+		
+	var btn = _create_item_button(icon_path, "")
 	btn.gui_input.connect(_on_item_gui_input.bind(btn, "harvest", ""))
 	item_container.add_child(btn)
 
